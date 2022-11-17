@@ -5,8 +5,8 @@ import (
     "net/http"
     "strings"
     "log"
-    
-)
+
+) 
 
 func sayhelloName(w http.ResponseWriter, r *http.Request) {
     r.ParseForm()  // parse arguments, you have to call this by yourself
