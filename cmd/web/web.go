@@ -144,8 +144,10 @@ import (
 
 	// globals "web/globals"
 	"ds-final-project/web/globals"
-	middleware "web/auth"
-	routes "web/routes"
+	"ds-final-project/web/globals"
+	"ds-final-project/web/globals"
+	// middleware "web/auth"
+	// routes "web/routes"
 )
 
 func main() {

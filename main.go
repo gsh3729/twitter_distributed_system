@@ -6,10 +6,10 @@ import (
 	"github.com/gin-gonic/gin"
 	//"html/template"
 	//"strings"
-
-	globals "gin_session_auth/globals"
-	middleware "gin_session_auth/middleware"
-	routes "gin_session_auth/routes"
+	"web/globals"
+	// globals "ds-final-project/web/globals"
+	// middleware "ds-final-project/web/middleware"
+	// routes "ds-final-project/web/routes"
 )
 
 func main() {
