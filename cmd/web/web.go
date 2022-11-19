@@ -104,7 +104,7 @@ func main() {
     http.HandleFunc("/login", login)
     http.HandleFunc("/signup", signup)
     http.HandleFunc("/home", home)
-    http.HandleFunc("/", profile)
+    http.HandleFunc("/profile/", profile)
     http.HandleFunc("/compose/tweet", composeTweet)
     http.HandleFunc("/connect/people", connectPeople)
     err := http.ListenAndServe(":9090", nil) // set listen port
