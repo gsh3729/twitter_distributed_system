@@ -24,7 +24,7 @@ package routes
 import (
 	"github.com/gin-gonic/gin"
 
-	controllers "web/controllers"
+	controllers "proj/web/controllers"
 )
 
 func PublicRoutes(g *gin.RouterGroup) {
