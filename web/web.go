@@ -7,9 +7,9 @@ import (
 	//"html/template"
 	//"strings"
 
-	globals "web/globals"
-	middleware "web/middleware"
-	routes "web/routes"
+	globals "ds-final-project/web/globals"
+	middleware "ds-final-project/web/auth"
+	routes "ds-final-project/web/routes"
 )
 
 func main() {
