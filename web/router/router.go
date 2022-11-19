@@ -15,6 +15,6 @@ func Router() *mux.Router {
 	router.HandleFunc("/profile/{id}", middleware.TaskComplete).Methods("PUT", "OPTIONS")
 	router.HandleFunc("/compose/tweet/{id}", middleware.UndoTask).Methods("PUT", "OPTIONS")
 	router.HandleFunc("/connect/people/{id}", middleware.DeleteTask).Methods("DELETE", "OPTIONS")
-	router.HandleFunc("/api/deleteAllTask", middleware.DeleteAllTask).Methods("DELETE", "OPTIONS")
+	// router.HandleFunc("/api/deleteAllTask", middleware.DeleteAllTask).Methods("DELETE", "OPTIONS")
 	return router
 }
