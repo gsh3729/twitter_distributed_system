@@ -8,11 +8,6 @@ import (
     "html/template"
 )
 
-func renderTemplate(w http.ResponseWriter, tmpl string, p *Page) {
-    t, _ := template.ParseFiles(tmpl + ".html")
-    t.Execute(w, p)
-}
-
 
 func sayhelloName(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()       // parse arguments, you have to call this by yourself
@@ -80,15 +75,15 @@ func profile(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("val:", strings.Join(v, ""))
 	}
     userId := r.URL.Path[len("/profile/"):]
-    tmplt, _ := template.ParseFiles("profile.html")
+    tmplt, _ := template.ParseFiles("../../templates/profile.html")
     event := ProfileDetails{
-        ProfileName: userId,
+        ProfileName: "userId",
     }
     err := tmplt.Execute(w, event)
     if err != nil {
         return
     }
-	// fmt.Fprintf(w, "Profile %s!", userId) // send data to client side
+	fmt.Fprintf(w, "Profile %s!", userId) // send data to client side
 }
 
 func composeTweet(w http.ResponseWriter, r *http.Request) {
