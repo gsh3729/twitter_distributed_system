@@ -65,6 +65,9 @@ func home(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Fprintf(w, "Home") // send data to client side
 }
+type ProfileDetails struct {
+    ProfileName string
+}
 
 func profile(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()       // parse arguments, you have to call this by yourself
@@ -77,7 +80,15 @@ func profile(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("val:", strings.Join(v, ""))
 	}
     userId := r.URL.Path[len("/profile/"):]
-	fmt.Fprintf(w, "Profile %s!", userId) // send data to client side
+    tmplt, _ := template.ParseFiles("profile.html")
+    event := ProfileDetails{
+        ProfileName: userId,
+    }
+    err := tmplt.Execute(w, event)
+    if err != nil {
+        return
+    }
+	// fmt.Fprintf(w, "Profile %s!", userId) // send data to client side
 }
 
 func composeTweet(w http.ResponseWriter, r *http.Request) {
