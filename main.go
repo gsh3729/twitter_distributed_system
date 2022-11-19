@@ -4,21 +4,16 @@ import (
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
-	//"html/template"
-	//"strings"
 	globals "proj/web/globals"
 	middleware "proj/web/auth"
 	routes "proj/web/router"
-	// globals "ds-final-project/web/globals"
-	// middleware "ds-final-project/web/middleware"
-	// routes "ds-final-project/web/routes"
 )
 
 func main() {
 	router := gin.Default()
 
 	router.Static("/assets", "./assets")
-	router.LoadHTMLGlob("templates/*.html")
+	router.LoadHTMLGlob("web/templates/*.html")
 
 	router.Use(sessions.Sessions("session", cookie.NewStore(globals.Secret)))
 
