@@ -69,8 +69,8 @@ func profile(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("key:", k)
 		fmt.Println("val:", strings.Join(v, ""))
 	}
-    
-	fmt.Fprintf(w, "Profile !") // send data to client side
+    userId := r.URL.Path[len("/profile/"):]
+	fmt.Fprintf(w, "Profile %s!", userId) // send data to client side
 }
 
 func composeTweet(w http.ResponseWriter, r *http.Request) {
