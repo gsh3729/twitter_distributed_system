@@ -58,7 +58,7 @@ func LoginPostHandler() gin.HandlerFunc {
 			return
 		}
 
-		c.Redirect(http.StatusMovedPermanently, "/ide/proxy/8080/dashboard")
+		c.Redirect(http.StatusMovedPermanently, "/dashboard")
 	}
 }
 
