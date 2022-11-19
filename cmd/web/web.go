@@ -142,9 +142,10 @@ import (
 	//"html/template"
 	//"strings"
 
-	globals "ds-final-project/web/globals"
-	middleware "ds-final-project/web/auth"
-	routes "ds-final-project/web/routes"
+	// globals "web/globals"
+	"ds-final-project/web/globals"
+	middleware "web/auth"
+	routes "web/routes"
 )
 
 func main() {
