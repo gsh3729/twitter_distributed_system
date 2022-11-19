@@ -3,9 +3,10 @@ package controllers
 import (
 	"github.com/gin-contrib/sessions"
 
-	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 
 	globals "proj/web/globals"
 	helpers "proj/web/helpers"
@@ -76,7 +77,8 @@ func LogoutGetHandler() gin.HandlerFunc {
 			log.Println("Failed to save session:", err)
 			return
 		}
-
+		log.Println(c.Request.URL)
+		log.Println(c.Request.Host)
 		c.Redirect(http.StatusMovedPermanently, "/ide/proxy/8080/")
 	}
 }
