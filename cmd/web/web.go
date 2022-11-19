@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"strings"
+    "html/template"
 )
 
 func renderTemplate(w http.ResponseWriter, tmpl string, p *Page) {
