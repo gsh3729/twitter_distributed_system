@@ -6,7 +6,14 @@ import (
 	"net/http"
 	"strings"
     "html/template"
+	"github.com/gin-contrib/sessions"
+	"github.com/gin-contrib/sessions/cookie"
+	"github.com/gin-gonic/gin"
 )
+
+var Secret = []byte("secret")
+
+const Userkey = "user"
 
 
 func sayhelloName(w http.ResponseWriter, r *http.Request) {
