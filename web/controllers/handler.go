@@ -7,8 +7,8 @@ import (
 	"log"
 	"net/http"
 
-	globals "web/globals"
-	helpers "web/helpers"
+	globals "proj/web/globals"
+	helpers "proj/web/helpers"
 )
 
 func LoginGetHandler() gin.HandlerFunc {
