@@ -79,7 +79,7 @@ func LogoutGetHandler() gin.HandlerFunc {
 		}
 		log.Println(c.Request.URL)
 		log.Println(c.Request.Host)
-		c.Redirect(http.StatusOK, "/")
+		c.Redirect(http.StatusOK, "/index")
 	}
 }
 
