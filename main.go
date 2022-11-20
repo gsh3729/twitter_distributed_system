@@ -1,12 +1,13 @@
 package main
 
 import (
+	middleware "proj/web/auth"
+	globals "proj/web/globals"
+	routes "proj/web/router"
+
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
-	globals "proj/web/globals"
-	middleware "proj/web/auth"
-	routes "proj/web/router"
 )
 
 func main() {
@@ -24,5 +25,5 @@ func main() {
 	private.Use(middleware.AuthRequired)
 	routes.PrivateRoutes(private)
 
-	router.Run("localhost:8080")
+	router.Run("localhost:8000")
 }
