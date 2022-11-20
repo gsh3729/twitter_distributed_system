@@ -22,7 +22,7 @@ func SignupGetHandler() gin.HandlerFunc {
 		}
 		c.HTML(http.StatusOK, "signup.html", gin.H{})
 	}
-}
+} 
 
 func LoginGetHandler() gin.HandlerFunc {
 	return func(c *gin.Context) {
