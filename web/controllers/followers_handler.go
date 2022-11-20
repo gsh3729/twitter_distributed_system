@@ -22,13 +22,13 @@ func FollowersGetHandler() gin.HandlerFunc {
 		}
 		
 		username := c.Request.URL.Path[len("/followers/"):]
-		userFollowers := []string{} 
-		for key, element := range globals.followers {
-			// fmt.Println("Key:", key, "=>", "Element:", element)
-			if ( key==username ) {
-				userFollowers = append(userFollowers, element)
-			}
-		}
+		// userFollowers := []string{} 
+		// for key, element := range globals.followers {
+		// 	// fmt.Println("Key:", key, "=>", "Element:", element)
+		// 	if ( key==username ) {
+		// 		userFollowers = append(userFollowers, element)
+		// 	}
+		// }
 		c.HTML(http.StatusOK, "followers.html", gin.H{
 			"content": "",
 			"user":    user,
