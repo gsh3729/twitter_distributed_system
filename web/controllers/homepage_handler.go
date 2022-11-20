@@ -19,7 +19,13 @@ func HomepageGetHandler() gin.HandlerFunc {
 			return
 		}
 
-		feed 
+		feed := []string{} 
+		for key, element := range globals.Following[user] {
+			// fmt.Println("Key:", key, "=>", "Element:", element)
+			if ( key==username ) {
+				userFollowers = append(userFollowers, element)
+			}
+		}
 
 		username := c.Request.URL.Path[len("//"):]
 		connectTo := c.PostForm("connectTo")
