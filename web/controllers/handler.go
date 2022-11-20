@@ -79,7 +79,7 @@ func LogoutGetHandler() gin.HandlerFunc {
 		}
 		log.Println(c.Request.URL)
 		log.Println(c.Request.Host)
-		c.Redirect(http.StatusMovedPermanently, "/ide/proxy/8000/")
+		c.Redirect(http.StatusMovedPermanently, "/")
 	}
 }
 
@@ -88,7 +88,7 @@ func IndexGetHandler() gin.HandlerFunc {
 		session := sessions.Default(c)
 		user := session.Get(globals.Userkey)
 		c.HTML(http.StatusOK, "index.html", gin.H{
-			"content": "This is an index page...",
+			"content": "",
 			"user":    user,
 		})
 	}
