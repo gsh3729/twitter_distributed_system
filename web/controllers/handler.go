@@ -79,7 +79,7 @@ func LogoutGetHandler() gin.HandlerFunc {
 		}
 		log.Println(c.Request.URL)
 		log.Println(c.Request.Host)
-		c.Redirect(http.StatusMovedPermanently, "/")
+		c.Redirect(http.StatusOK, "/")
 	}
 }
 
@@ -99,7 +99,7 @@ func DashboardGetHandler() gin.HandlerFunc {
 		session := sessions.Default(c)
 		user := session.Get(globals.Userkey)
 		c.HTML(http.StatusOK, "dashboard.html", gin.H{
-			"content": "This is a dashboard",
+			"content": "",
 			"user":    user,
 		})
 	}
