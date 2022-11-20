@@ -143,9 +143,7 @@ import (
 	//"strings"
 
 	// globals "web/globals"
-	"ds-final-project/web/globals"
-	"ds-final-project/web/globals"
-	"ds-final-project/web/globals"
+	globals "proj/web/globals"
 	// middleware "web/auth"
 	// routes "web/routes"
 )
@@ -159,7 +157,7 @@ func main() {
 	router.Use(sessions.Sessions("session", cookie.NewStore(globals.Secret)))
 
 	public := router.Group("/")
-	routes.PublicRoutes(public)
+	router.PublicRoutes(public)
 
 	private := router.Group("/")
 	private.Use(middleware.AuthRequired)
