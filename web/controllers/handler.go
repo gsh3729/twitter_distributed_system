@@ -12,6 +12,18 @@ import (
 	helpers "proj/web/helpers"
 )
 
+func SignupGetHandler() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		session := sessions.Default(c)
+		user := session.Get(globals.Userkey)
+		if user != nil {
+			c.Redirect(http.StatusAccepted, "/dashboard")
+			return
+		}
+		c.HTML(http.StatusOK, "signup.html", gin.H{})
+	}
+}
+
 func LoginGetHandler() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		session := sessions.Default(c)
@@ -24,10 +36,30 @@ func LoginGetHandler() gin.HandlerFunc {
 				})
 			return
 		}
-		c.HTML(http.StatusOK, "login.html", gin.H{
-			"content": "",
-			"user":    user,
-		})
+		c.HTML(http.StatusOK, "login.html", gin.H{})
+	}
+}
+
+func SignupPostHandler() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		session := sessions.Default(c)
+		user := session.Get(globals.Userkey)
+		if user != nil {
+			c.Redirect(http.StatusAccepted, "/dashboard")
+			return
+		}
+
+		username := c.PostForm("username")
+		password := c.PostForm("password")
+
+		if helpers.EmptyUserPass(username, password) {
+			c.HTML(http.StatusBadRequest, "signup.html", gin.H{"content": "Parameters can't be empty"})
+			return
+		}
+
+		globals.UserPass[username] = password
+
+		c.HTML(http.StatusCreated, "index.html", gin.H{"content": "Created user successfully"})
 	}
 }
 
@@ -36,7 +68,7 @@ func LoginPostHandler() gin.HandlerFunc {
 		session := sessions.Default(c)
 		user := session.Get(globals.Userkey)
 		if user != nil {
-			c.HTML(http.StatusBadRequest, "login.html", gin.H{"content": "Please logout first"})
+			c.Redirect(http.StatusAccepted, "/dashboard")
 			return
 		}
 
@@ -77,12 +109,8 @@ func LogoutGetHandler() gin.HandlerFunc {
 			log.Println("Failed to save session:", err)
 			return
 		}
-		log.Println(c.Request.URL)
-		log.Println(c.Request.Host)
-		c.HTML(http.StatusOK, "index.html", gin.H{
-			"content": "Logged out successfully!",
-			"user":    nil,
-		})
+
+		c.HTML(http.StatusOK, "index.html", gin.H{"content": "Logged out successfully"})
 	}
 }
 

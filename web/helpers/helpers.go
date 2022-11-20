@@ -3,12 +3,12 @@ package helpers
 import (
 	"log"
 	"strings"
+
+	globals "proj/web/globals"
 )
 
 func CheckUserPass(username, password string) bool {
-	userpass := make(map[string]string)
-	userpass["hello"] = "itsme"
-	userpass["john"] = "doe"
+	userpass := globals.UserPass
 
 	log.Println("checkUserPass", username, password, userpass)
 
