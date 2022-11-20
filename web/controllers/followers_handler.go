@@ -12,7 +12,7 @@ import (
 	helpers "proj/web/helpers"
 )
 
-func SignupGetHandler() gin.HandlerFunc {
+func FollowersGetHandler() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		session := sessions.Default(c)
 		user := session.Get(globals.Userkey)
@@ -20,6 +20,11 @@ func SignupGetHandler() gin.HandlerFunc {
 			c.Redirect(http.StatusAccepted, "/dashboard")
 			return
 		}
-		c.HTML(http.StatusOK, "signup.html", gin.H{})
+		
+		c.HTML(http.StatusOK, "followers.html", gin.H{
+			"content": "",
+			"user":    user,
+		})
 	}
 } 
+
