@@ -22,7 +22,7 @@ func FollowersGetHandler() gin.HandlerFunc {
 		}
 		
 		username := c.Request.URL.Path[len("/followers/"):]
-		userFollowers := globals.followers[username]
+		userFollowers := globals.Followers[username]
 
 		// userFollowers := []string{} 
 		// for key, element := range globals.followers {

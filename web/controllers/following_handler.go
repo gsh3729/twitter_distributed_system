@@ -22,7 +22,7 @@ func FollowingGetHandler() gin.HandlerFunc {
 		}
 		
 		username := c.Request.URL.Path[len("/followers/"):]
-		userFollowers := globals.following[username]
+		userFollowers := globals.Following[username]
 
 
 		c.HTML(http.StatusOK, "following.html", gin.H{

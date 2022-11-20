@@ -21,8 +21,12 @@ func ConnectPostHandler() gin.HandlerFunc {
 
 		username := c.Request.URL.Path[len("/connect/"):]
 		connectTo := c.PostForm("connectTo")
-		userFollowers := globals.Followers[username]
+		userFollowers := globals.Following[username]
 		userFollowers = append(userFollowers, connectTo)
+
+		userFollowers := globals.Following[username]
+		userFollowers = append(userFollowers, connectTo)
+
 
 		// c.HTML(http.StatusOK, "followers.html", gin.H{
 		// 	"content": userFollowers,
