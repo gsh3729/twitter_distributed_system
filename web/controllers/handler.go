@@ -81,7 +81,7 @@ func LogoutGetHandler() gin.HandlerFunc {
 		log.Println(c.Request.Host)
 		c.HTML(http.StatusOK, "index.html", gin.H{
 			"content": "Logged out successfully!",
-			"user":    user,
+			"user":    nil,
 		})
 	}
 }
