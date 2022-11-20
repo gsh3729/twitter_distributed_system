@@ -12,7 +12,7 @@ import (
 	// helpers "proj/web/helpers"
 )
 
-func FollowersGetHandler() gin.HandlerFunc {
+func ConnectPostHandler() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		session := sessions.Default(c)
 		user := session.Get(globals.Userkey)
@@ -20,7 +20,9 @@ func FollowersGetHandler() gin.HandlerFunc {
 			c.Redirect(http.StatusAccepted, "/dashboard")
 			return
 		}
-		
+
+
+		 := c.PostForm("username")
 		username := c.Request.URL.Path[len("/followers/"):]
 		userFollowers := globals.followers[username]
 
