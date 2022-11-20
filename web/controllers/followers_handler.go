@@ -22,11 +22,11 @@ func FollowersGetHandler() gin.HandlerFunc {
 		}
 		
 		username := c.Request.URL.Path[len("/followers/"):]
-
+		followers := []string{} 
 		for key, element := range followers {
 			// fmt.Println("Key:", key, "=>", "Element:", element)
-			if key == username : {
-
+			if ( key==username ): {
+				followers = append(followers, key)
 			}
 
 		}
