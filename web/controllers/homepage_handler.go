@@ -10,7 +10,7 @@ import (
 	globals "proj/web/globals"
 )
 
-func ConnectPostHandler() gin.HandlerFunc {
+func HomepageGetHandler() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		session := sessions.Default(c)
 		user := session.Get(globals.Userkey)
@@ -19,7 +19,9 @@ func ConnectPostHandler() gin.HandlerFunc {
 			return
 		}
 
-		username := c.Request.URL.Path[len("/connect/"):]
+		feed 
+
+		username := c.Request.URL.Path[len("//"):]
 		connectTo := c.PostForm("connectTo")
 		userFollowing := globals.Following[username]
 		userFollowing = append(userFollowing, connectTo)
@@ -27,10 +29,10 @@ func ConnectPostHandler() gin.HandlerFunc {
 		userFollowers := globals.Followers[connectTo]
 		userFollowers = append(userFollowers, username)
 
-		// c.HTML(http.StatusOK, "followers.html", gin.H{
-		// 	"content": userFollowers,
-		// 	"user":    user,
-		// })
+		c.HTML(http.StatusOK, "home.html", gin.H{
+			"content": userFollowers,
+			"user":    user,
+		})
 	}
 } 
 
