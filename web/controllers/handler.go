@@ -79,7 +79,10 @@ func LogoutGetHandler() gin.HandlerFunc {
 		}
 		log.Println(c.Request.URL)
 		log.Println(c.Request.Host)
-		c.Redirect(http.StatusOK, "/index")
+		c.HTML(http.StatusOK, "index.html", gin.H{
+			"content": "Logged out successfully!",
+			"user":    user,
+		})
 	}
 }
 
