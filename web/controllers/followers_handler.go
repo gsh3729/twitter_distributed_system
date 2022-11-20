@@ -20,7 +20,16 @@ func FollowersGetHandler() gin.HandlerFunc {
 			c.Redirect(http.StatusAccepted, "/dashboard")
 			return
 		}
+
+		username := c.PostForm("username")
 		
+		for key, element := range followers {
+			// fmt.Println("Key:", key, "=>", "Element:", element)
+			if key == : {
+
+			}
+
+		}
 		c.HTML(http.StatusOK, "followers.html", gin.H{
 			"content": "",
 			"user":    user,
