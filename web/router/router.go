@@ -38,6 +38,8 @@ func PublicRoutes(g *gin.RouterGroup) {
 }
 
 func PrivateRoutes(g *gin.RouterGroup) {
+	g.GET("/followers", controllers.FollowersGetHandler())
+	g.GET("/following", controllers.FollowersGetHandler())
 	g.GET("/dashboard", controllers.DashboardGetHandler())
 	g.GET("/logout", controllers.LogoutGetHandler())
 
