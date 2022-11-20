@@ -26,9 +26,8 @@ func FollowersGetHandler() gin.HandlerFunc {
 		for key, element := range globals.followers {
 			// fmt.Println("Key:", key, "=>", "Element:", element)
 			if ( key==username ) {
-				userFollowers = append(userFollowers, key)
+				userFollowers = append(userFollowers, element)
 			}
-
 		}
 		c.HTML(http.StatusOK, "followers.html", gin.H{
 			"content": "",
