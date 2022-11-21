@@ -57,7 +57,8 @@ func ConnectPostHandler() gin.HandlerFunc {
 		// 	"content": userFollowers,
 		// 	"user":    user,
 		// })
-		c.HTML(http.StatusCreated, "index.html", gin.H{"content": "Connected to user successfully"})
+		// c.HTML(http.StatusCreated, "index.html", gin.H{"content": "Connected to user successfully"})
+		c.Redirect(http.StatusMovedPermanently, "/dashboard")
 	}
 }
 

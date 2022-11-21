@@ -49,9 +49,10 @@ func TweetPostHandler() gin.HandlerFunc {
 
 		log.Println("Posted tweet: ", globals.Tweets[user.(string)])
 		
-		c.HTML(http.StatusOK, "index.html", gin.H{
-			"user":    user,
-		})
+		// c.HTML(http.StatusOK, "index.html", gin.H{
+		// 	"user":    user,
+		// })
+		c.Redirect(http.StatusMovedPermanently, "/dashboard")
 	}
 } 
 
