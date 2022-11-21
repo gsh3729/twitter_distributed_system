@@ -2,7 +2,7 @@
 <section class="section">
   <div class="container">
     <h1 class="title">
-      Followers
+      Home page
     </h1>
     <p>{{.content}}</p>
     {{range $index, $value := .content}}
@@ -10,6 +10,12 @@
           {{$index}}, {{$value}} 
         </p>
     {{end}}
+    {{range $index, $value := .content}}
+        <p>
+          {{$index}}, {{$value.Text}} 
+        </p>
+    {{end}}
+    
   </div>
 </section>
 {{template "footer.html"}}

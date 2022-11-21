@@ -44,8 +44,8 @@ func PrivateRoutes(g *gin.RouterGroup) {
 	g.GET("/findP", controllers.FindPeopleGetHandler())
 	g.POST("/connect", controllers.ConnectPostHandler()) // /connect/harsha?connectTo=Tej
 	
-	g.GET("/compose", controllers.TweetGetHandler()) 
-	g.POST("/compose", controllers.TweetPostHandler())  
+	g.GET("/composet", controllers.TweetGetHandler()) 
+	g.POST("/composet", controllers.TweetPostHandler())  
 	
 	g.GET("/home", controllers.HomepageGetHandler())
 	
