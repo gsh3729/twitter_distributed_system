@@ -37,7 +37,7 @@ func FollowersGetHandler() gin.HandlerFunc {
 		// }
 
 		c.HTML(http.StatusOK, "followers.html", gin.H{
-			"content": "harsha",
+			"content": userFollowers,
 			"user":    user,
 		})
 	}

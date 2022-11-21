@@ -10,6 +10,7 @@ import (
 	globals "proj/web/globals"
 
 	"time"
+	"log"
 )
 
 func TweetGetHandler() gin.HandlerFunc {
@@ -45,6 +46,8 @@ func TweetPostHandler() gin.HandlerFunc {
 		}
 
 		globals.Tweets[user.(string)] = append(globals.Tweets[user.(string)], tweet)
+
+		log.Println("Posted tweet: ", globals.Tweets[user.(string)])
 		
 		c.HTML(http.StatusOK, "index.html", gin.H{
 			"user":    user,
