@@ -10,6 +10,30 @@ import (
 	globals "proj/web/globals"
 )
 
+// func ConnectPostHandler() gin.HandlerFunc {
+// 	return func(c *gin.Context) {
+// 		session := sessions.Default(c)
+// 		user := session.Get(globals.Userkey)
+// 		if user != nil {
+// 			c.Redirect(http.StatusAccepted, "/dashboard")
+// 			return
+// 		}
+
+// 		username := c.Request.URL.Path[len("/connect/"):]
+// 		connectTo := c.PostForm("connectTo")
+// 		userFollowing := globals.Following[username]
+// 		userFollowing = append(userFollowing, connectTo)
+
+// 		userFollowers := globals.Followers[connectTo]
+// 		userFollowers = append(userFollowers, username)
+
+// 		// c.HTML(http.StatusOK, "followers.html", gin.H{
+// 		// 	"content": userFollowers,
+// 		// 	"user":    user,
+// 		// })
+// 	}
+// } 
+
 func ConnectPostHandler() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		session := sessions.Default(c)
@@ -27,33 +51,12 @@ func ConnectPostHandler() gin.HandlerFunc {
 		userFollowers := globals.Followers[connectTo]
 		userFollowers = append(userFollowers, username)
 
+
 		// c.HTML(http.StatusOK, "followers.html", gin.H{
 		// 	"content": userFollowers,
 		// 	"user":    user,
 		// })
-	}
-} 
-
-func ConnectPostHandler() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		session := sessions.Default(c)
-		user := session.Get(globals.Userkey)
-		if user != nil {
-			c.Redirect(http.StatusAccepted, "/dashboard")
-			return
-		}
-
-		username := c.PostForm("username")
-		password := c.PostForm("password")
-
-		if helpers.EmptyUserPass(username, password) {
-			c.HTML(http.StatusBadRequest, "signup.html", gin.H{"content": "Parameters can't be empty"})
-			return
-		}
-
-		globals.UserPass[username] = password
-
-		c.HTML(http.StatusCreated, "index.html", gin.H{"content": "Created user successfully"})
+		c.HTML(http.StatusCreated, "index.html", gin.H{"content": "Connected to user successfully"})
 	}
 }
 
