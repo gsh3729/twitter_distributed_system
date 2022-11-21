@@ -3,7 +3,7 @@ package controllers
 import (
 	"github.com/gin-contrib/sessions"
 
-	// "log"
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -23,7 +23,7 @@ func FollowersGetHandler() gin.HandlerFunc {
 		
 		username := c.Request.URL.Path[len("/followers/"):]
 		userFollowers := globals.Followers[username]
-
+		log.Println("Followers: ", userFollowers)
 		// userFollowers := []string{} 
 		// for key, element := range globals.followers {
 		// 	// fmt.Println("Key:", key, "=>", "Element:", element)
@@ -33,7 +33,7 @@ func FollowersGetHandler() gin.HandlerFunc {
 		// }
 
 		c.HTML(http.StatusOK, "followers.html", gin.H{
-			"content": userFollowers,
+			"content": "harsha",
 			"user":    user,
 		})
 	}
