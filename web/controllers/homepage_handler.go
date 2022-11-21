@@ -20,7 +20,7 @@ func HomepageGetHandler() gin.HandlerFunc {
 		}
 
 		var feed []globals.Tweet
-		for _, element := range globals.Following[user] {
+		for _, element := range globals.Following[globals.Userkey] { //check once
 			feed = append(feed, globals.Tweets[element])
 		}
 
