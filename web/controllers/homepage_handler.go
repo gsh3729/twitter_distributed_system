@@ -32,7 +32,7 @@ func HomepageGetHandler() gin.HandlerFunc {
 		}
 
 		sort.SliceStable(feed[:], func(i, j int) bool {
-			return feed[i].Time <= feed[j].Time
+			return feed[i].Time.Before(feed[j].Time)
 		})
 
 		c.HTML(http.StatusOK, "home.html", gin.H{

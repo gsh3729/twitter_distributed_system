@@ -22,7 +22,6 @@ func TweetGetHandler() gin.HandlerFunc {
 		// }
 
 		
-
 		c.HTML(http.StatusOK, "composeTweet.html", gin.H{
 			"user":    user,
 		})
