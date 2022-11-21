@@ -37,10 +37,16 @@ func TweetPostHandler() gin.HandlerFunc {
 		// 	c.Redirect(http.StatusAccepted, "/dashboard")
 		// 	return
 		// }
-		
 
+		tweetMsg := c.PostForm("tweetMsg")
 		
+		tweet := globals.Tweet{
+			Time:  time.Now(),    
+			Text: tweetMsg ,     
+		}
 
+		globals.Tweets[user.(string)] = append(globals.Tweets[user.(string)], tweet)
+		
 		c.HTML(http.StatusOK, "home.html", gin.H{
 			"user":    user,
 		})

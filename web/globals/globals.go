@@ -1,5 +1,7 @@
 package globals
 
+import "time"
+
 var Secret = []byte("secret")
 
 var UserPass = make(map[string]string)
