@@ -24,6 +24,10 @@ func TweetPostHandler() gin.HandlerFunc {
 			feed = append(feed, globals.Tweets[element])
 		}
 
+		sort.Slice(planets[:], func(i, j int) bool {
+			return planets[i].Axis < planets[j].Axis
+		  })
+
 		c.HTML(http.StatusOK, "home.html", gin.H{
 			"content": feed,
 			"user":    user,
