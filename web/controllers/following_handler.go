@@ -9,7 +9,6 @@ import (
 	"github.com/gin-gonic/gin"
 
 	globals "proj/web/globals"
-	// helpers "proj/web/helpers"
 )
 
 func FollowingGetHandler() gin.HandlerFunc {
@@ -21,7 +20,7 @@ func FollowingGetHandler() gin.HandlerFunc {
 			return
 		}
 		
-		username := c.Request.URL.Path[len("/followers/"):]
+		username := c.Param("userId")
 		userFollowers := globals.Following[username]
 
 
