@@ -5,7 +5,7 @@
       Twitter v0.1
     </h1>
     {{range $index, $value := .content}}
-        <p>{{.index}}, {{.value}}</p>
+        <p>{{$index}}, {{$value}}</p>
     {{end}}
   </div>
 </section>
