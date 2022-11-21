@@ -20,11 +20,8 @@ func HomepageGetHandler() gin.HandlerFunc {
 		}
 
 		feed := []string{} 
-		for key, element := range globals.Following[user] {
-			// fmt.Println("Key:", key, "=>", "Element:", element)
-			if ( key==username ) {
-				userFollowers = append(userFollowers, element)
-			}
+		for _, element := range globals.Following[user] {
+			feed = append(feed, globals.Tweets[element])
 		}
 
 		username := c.Request.URL.Path[len("//"):]
