@@ -12,7 +12,7 @@ import (
 	// helpers "proj/web/helpers"
 )
 
-func FollowersGetHandler() gin.HandlerFunc {
+func FindPeopleGetHandler() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		session := sessions.Default(c)
 		user := session.Get(globals.Userkey)
@@ -23,18 +23,14 @@ func FollowersGetHandler() gin.HandlerFunc {
 		// 	return
 		// }
 		
-		// username := c.Request.URL.Path[len("/followers/"):]
-		username := c.Param("userId")
-		log.Println("Username: ", username)
-		userFollowers := globals.Followers[username]
-		log.Println("Followers: ", userFollowers)
-		// userFollowers := []string{} 
-		// for key, element := range globals.followers {
-		// 	// fmt.Println("Key:", key, "=>", "Element:", element)
-		// 	if ( key==username ) {
-		// 		userFollowers = append(userFollowers, element)
-		// 	}
-		// }
+
+		people := []string{} 
+		for key, element := range globals.UserPass {
+			// fmt.Println("Key:", key, "=>", "Element:", element)
+			if ( key != user) {
+				people = append(people, key)
+			}
+		}
 
 		c.HTML(http.StatusOK, "followers.html", gin.H{
 			"content": "harsha",
