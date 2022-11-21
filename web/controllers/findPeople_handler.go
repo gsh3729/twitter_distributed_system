@@ -25,15 +25,16 @@ func FindPeopleGetHandler() gin.HandlerFunc {
 		
 
 		people := []string{} 
-		for key, element := range globals.UserPass {
-			// fmt.Println("Key:", key, "=>", "Element:", element)
-			if ( key != user) {
+		for key := range globals.UserPass {
+			log.Println("key: ", key)
+			if (key != user) {
+				log.Println("suc")
 				people = append(people, key)
 			}
 		}
 
-		c.HTML(http.StatusOK, "followers.html", gin.H{
-			"content": "harsha",
+		c.HTML(http.StatusOK, "findPeople.html", gin.H{
+			"content": people,
 			"user":    user,
 		})
 	}
