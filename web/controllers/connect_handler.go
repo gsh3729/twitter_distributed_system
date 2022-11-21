@@ -34,3 +34,26 @@ func ConnectPostHandler() gin.HandlerFunc {
 	}
 } 
 
+func ConnectPostHandler() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		session := sessions.Default(c)
+		user := session.Get(globals.Userkey)
+		if user != nil {
+			c.Redirect(http.StatusAccepted, "/dashboard")
+			return
+		}
+
+		username := c.PostForm("username")
+		password := c.PostForm("password")
+
+		if helpers.EmptyUserPass(username, password) {
+			c.HTML(http.StatusBadRequest, "signup.html", gin.H{"content": "Parameters can't be empty"})
+			return
+		}
+
+		globals.UserPass[username] = password
+
+		c.HTML(http.StatusCreated, "index.html", gin.H{"content": "Created user successfully"})
+	}
+}
+
