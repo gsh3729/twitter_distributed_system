@@ -5,9 +5,13 @@
       Twitter v0.1
     </h1>
     <p>{{.content}}</p>
-    <!-- {{range $index, $value := .content}}
-        <p>{{$index}}, {{$value}}</p>
-    {{end}} -->
+    {{range $index, $value := .content}}
+        <p>
+          {{$index}}, {{$value}} 
+          <form action="signup" method="post"></form>
+          </form>
+        </p>
+    {{end}}
   </div>
 </section>
 {{template "footer.html"}}
