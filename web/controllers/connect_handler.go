@@ -8,6 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 
 	globals "proj/web/globals"
+	"log"
 )
 
 // func ConnectPostHandler() gin.HandlerFunc {
@@ -48,11 +49,11 @@ func ConnectPostHandler() gin.HandlerFunc {
 		userFollowing := globals.Following[user.(string)]
 		userFollowing = append(userFollowing, connectTo)
 
-		log.Println("Following: ", userFollowing)
+		log.Println("Following: ", globals.Following[user.(string)])
 
 		userFollowers := globals.Followers[connectTo]
 		userFollowers = append(userFollowers, user.(string))
-
+		log.Println("Followers: ", globals.Followers[connectTo])
 
 		// c.HTML(http.StatusOK, "followers.html", gin.H{
 		// 	"content": userFollowers,
