@@ -9,6 +9,7 @@ import (
 
 	globals "proj/web/globals"
 
+	"time"
 )
 
 func TweetGetHandler() gin.HandlerFunc {
@@ -37,11 +38,10 @@ func TweetPostHandler() gin.HandlerFunc {
 		// 	return
 		// }
 		
-		
+
 		
 
 		c.HTML(http.StatusOK, "home.html", gin.H{
-			"content": ,
 			"user":    user,
 		})
 	}

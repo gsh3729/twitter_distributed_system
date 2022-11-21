@@ -9,7 +9,7 @@ var Following = make(map[string][]string)
 var Followers = make(map[string][]string)
 
 type Tweet struct {
-	Time int
+	Time time.Time
 	Text string
 }
 
