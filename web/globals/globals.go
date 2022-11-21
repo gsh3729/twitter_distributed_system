@@ -10,8 +10,9 @@ var Followers = make(map[string][]string)
 
 type Tweet struct {
 	time int
+	text string
 }
 
-var Tweets = make(map[string][]string)
+var Tweets = make(map[string][]Tweet)
 
 const Userkey = "user"

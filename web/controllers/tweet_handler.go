@@ -8,6 +8,8 @@ import (
 	"github.com/gin-gonic/gin"
 
 	globals "proj/web/globals"
+
+	"sort"
 )
 
 func TweetPostHandler() gin.HandlerFunc {
@@ -19,13 +21,13 @@ func TweetPostHandler() gin.HandlerFunc {
 			return
 		}
 
-		feed := []string{} 
+		var feed []globals.Tweet
 		for _, element := range globals.Following[user] {
 			feed = append(feed, globals.Tweets[element])
 		}
 
-		sort.Slice(planets[:], func(i, j int) bool {
-			return planets[i].Axis < planets[j].Axis
+		sort.Slice(feed, func(i, j int) bool {
+			return feed[i].time < feed[j].time
 		  })
 
 		c.HTML(http.StatusOK, "home.html", gin.H{
