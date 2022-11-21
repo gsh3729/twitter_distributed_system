@@ -2,18 +2,21 @@
 <section class="section">
   <div class="container">
     <h1 class="title">
-      Twitter v0.1
+      Twitter users
     </h1>
+    <h2>Click on below buttons to follow them</h2>
     <!-- <p>{{.content}}</p> -->
+    <h1>
     {{range $index, $value := .content}}
         <p>
           <!-- {{$index}}, {{$value}}  -->
-          {{$value}}
+          <!-- {{$value}} -->
           <form action="/connect" method="post">
-            <input type="submit" name="connectTo" value={{$value}} />
+            <input type="submit" name="connectTo" value={{$value}} style="height:20px; width:50px; color:green"/>
           </form>
         </p>
     {{end}}
+  </h1>
   </div>
 </section>
 {{template "footer.html"}}
