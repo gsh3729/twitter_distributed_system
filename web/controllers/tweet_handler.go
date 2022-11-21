@@ -47,7 +47,7 @@ func TweetPostHandler() gin.HandlerFunc {
 
 		globals.Tweets[user.(string)] = append(globals.Tweets[user.(string)], tweet)
 		
-		c.HTML(http.StatusOK, "home.html", gin.H{
+		c.HTML(http.StatusOK, "index.html", gin.H{
 			"user":    user,
 		})
 	}

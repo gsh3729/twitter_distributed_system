@@ -35,9 +35,8 @@ func HomepageGetHandler() gin.HandlerFunc {
 			return feed[i].Time < feed[j].Time
 		})
 
-
 		c.HTML(http.StatusOK, "home.html", gin.H{
-			"content": feed,
+			"content": "Posted tweet successfully",
 			"user":    user,
 		})
 	}
