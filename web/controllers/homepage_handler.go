@@ -17,10 +17,10 @@ func HomepageGetHandler() gin.HandlerFunc {
 		session := sessions.Default(c)
 		user := session.Get(globals.Userkey)
 
-		if user != nil {
-			c.Redirect(http.StatusAccepted, "/dashboard")
-			return
-		}
+		// if user != nil {
+		// 	c.Redirect(http.StatusAccepted, "/dashboard")
+		// 	return
+		// }
 		log.Println("user : ", user)
 		var feed []globals.Tweet
 		for _, element := range globals.Following[user.(string)] { //check once
