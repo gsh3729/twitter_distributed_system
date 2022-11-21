@@ -9,8 +9,8 @@ var Following = make(map[string][]string)
 var Followers = make(map[string][]string)
 
 type Tweet struct {
-	time int
-	text string
+	Time int
+	Text string
 }
 
 var Tweets = make(map[string][]Tweet)

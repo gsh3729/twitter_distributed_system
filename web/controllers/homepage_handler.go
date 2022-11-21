@@ -31,8 +31,8 @@ func HomepageGetHandler() gin.HandlerFunc {
 
 		}
 
-		sort.Slice(feed, func(i, j int) bool {
-			return feed[i].time < feed[j].time
+		sort.SliceStable(feed[:], func(i, j int) bool {
+			return feed[i].Time < feed[j].Time
 		})
 
 
