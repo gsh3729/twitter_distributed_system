@@ -22,10 +22,10 @@ func TweetPostHandler() gin.HandlerFunc {
 
 		
 
-		c.HTML(http.StatusOK, "home.html", gin.H{
-			"content": ,
-			"user":    user,
-		})
+		// c.HTML(http.StatusOK, "home.html", gin.H{
+		// 	"content": ,
+		// 	"user":    user,
+		// })
 	}
 } 
 
