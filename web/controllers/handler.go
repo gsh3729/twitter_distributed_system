@@ -99,7 +99,7 @@ func LogoutGetHandler() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		session := sessions.Default(c)
 		user := session.Get(globals.Userkey)
-		log.Println("logging out user:", user)
+		.Println("logging out user:", user)
 		if user == nil {
 			log.Println("Invalid session token")
 			return

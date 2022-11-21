@@ -4,6 +4,7 @@ import (
 	"github.com/gin-contrib/sessions"
 
 	"net/http"
+	"log"
 
 	"github.com/gin-gonic/gin"
 
@@ -14,11 +15,12 @@ func HomepageGetHandler() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		session := sessions.Default(c)
 		user := session.Get(globals.Userkey)
+
 		if user != nil {
 			c.Redirect(http.StatusAccepted, "/dashboard")
 			return
 		}
-
+		log.Println()
 		var feed []globals.Tweet
 		for _, element := range globals.Following[globals.Userkey] { //check once
 			feed = append(feed, globals.Tweets[element])
