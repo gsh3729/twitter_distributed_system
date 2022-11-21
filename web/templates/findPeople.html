@@ -8,7 +8,7 @@
     {{range $index, $value := .content}}
         <p>
           {{$index}}, {{$value}} 
-          <form action="connect" method="post">
+          <!-- <form action="connect" method="post">
             <div class="field">
               <label class="label">Password</label>
               <div class="control">
@@ -18,6 +18,9 @@
             <div class="field">
               <button class="button is-link">{{$value}}</button>
             </div>
+          </form> -->
+          <form action="" method="post">
+            <input type="submit" name="connectTo" value={{$value}} />
           </form>
         </p>
     {{end}}
