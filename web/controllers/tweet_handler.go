@@ -24,7 +24,6 @@ func TweetPostHandler() gin.HandlerFunc {
 			feed = append(feed, globals.Tweets[element])
 		}
 
-
 		c.HTML(http.StatusOK, "home.html", gin.H{
 			"content": feed,
 			"user":    user,
