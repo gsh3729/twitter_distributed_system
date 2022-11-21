@@ -9,7 +9,6 @@ import (
 
 	globals "proj/web/globals"
 
-	"sort"
 )
 
 func TweetPostHandler() gin.HandlerFunc {

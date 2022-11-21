@@ -9,6 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 
 	globals "proj/web/globals"
+	"sort"
 )
 
 func HomepageGetHandler() gin.HandlerFunc {
@@ -20,10 +21,14 @@ func HomepageGetHandler() gin.HandlerFunc {
 			c.Redirect(http.StatusAccepted, "/dashboard")
 			return
 		}
-		log.Println()
+		log.Println("user : ", user)
 		var feed []globals.Tweet
-		for _, element := range globals.Following[globals.Userkey] { //check once
-			feed = append(feed, globals.Tweets[element])
+		for _, element := range globals.Following[user.(string)] { //check once
+			// feed = append(feed, globals.Tweets[element])
+			for _, tweet := range globals.Tweets[element] {
+				feed = append(feed, tweet)
+			}
+
 		}
 
 		sort.Slice(feed, func(i, j int) bool {
