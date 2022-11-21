@@ -28,7 +28,7 @@ func TweetPostHandler() gin.HandlerFunc {
 
 		sort.Slice(feed, func(i, j int) bool {
 			return feed[i].time < feed[j].time
-		  })
+		})
 
 		c.HTML(http.StatusOK, "home.html", gin.H{
 			"content": feed,
