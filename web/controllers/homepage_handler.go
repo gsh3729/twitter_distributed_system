@@ -24,16 +24,9 @@ func HomepageGetHandler() gin.HandlerFunc {
 			feed = append(feed, globals.Tweets[element])
 		}
 
-		username := c.Request.URL.Path[len("//"):]
-		connectTo := c.PostForm("connectTo")
-		userFollowing := globals.Following[username]
-		userFollowing = append(userFollowing, connectTo)
-
-		userFollowers := globals.Followers[connectTo]
-		userFollowers = append(userFollowers, username)
 
 		c.HTML(http.StatusOK, "home.html", gin.H{
-			"content": userFollowers,
+			"content": feed,
 			"user":    user,
 		})
 	}
