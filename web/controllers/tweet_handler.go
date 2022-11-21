@@ -21,17 +21,10 @@ func TweetPostHandler() gin.HandlerFunc {
 			return
 		}
 
-		var feed []globals.Tweet
-		for _, element := range globals.Following[user] {
-			feed = append(feed, globals.Tweets[element])
-		}
-
-		sort.Slice(feed, func(i, j int) bool {
-			return feed[i].time < feed[j].time
-		})
+		
 
 		c.HTML(http.StatusOK, "home.html", gin.H{
-			"content": feed,
+			"content": ,
 			"user":    user,
 		})
 	}

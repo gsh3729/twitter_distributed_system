@@ -19,10 +19,14 @@ func HomepageGetHandler() gin.HandlerFunc {
 			return
 		}
 
-		feed := []string{} 
+		var feed []globals.Tweet
 		for _, element := range globals.Following[user] {
 			feed = append(feed, globals.Tweets[element])
 		}
+
+		sort.Slice(feed, func(i, j int) bool {
+			return feed[i].time < feed[j].time
+		})
 
 
 		c.HTML(http.StatusOK, "home.html", gin.H{
