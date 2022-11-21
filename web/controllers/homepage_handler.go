@@ -26,11 +26,12 @@ func HomepageGetHandler() gin.HandlerFunc {
 		log.Println("User following list: ", globals.Following[user.(string)])
 		for _, element := range globals.Following[user.(string)] { //check once
 			// feed = append(feed, globals.Tweets[element])
+			log.Println("Tweets of user: ", element, "is ", globals.Tweets[element])
 			for _, tweet := range globals.Tweets[element] {
 				feed = append(feed, tweet)
 			}
 		}
-		log.Println("Tweets: ", feed)
+		log.Println("Feed Tweets: ", feed)
 
 		sort.SliceStable(feed[:], func(i, j int) bool {
 			return feed[i].Time.Before(feed[j].Time)
