@@ -4,10 +4,11 @@
     <h1 class="title">
       Twitter v0.1
     </h1>
-    <p>{{.content}}</p>
+    <!-- <p>{{.content}}</p> -->
     {{range $index, $value := .content}}
         <p>
-          {{$index}}, {{$value}} 
+          <!-- {{$index}}, {{$value}}  -->
+          {{$value}}
           <form action="/connect" method="post">
             <input type="submit" name="connectTo" value={{$value}} />
           </form>
