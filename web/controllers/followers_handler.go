@@ -16,12 +16,16 @@ func FollowersGetHandler() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		session := sessions.Default(c)
 		user := session.Get(globals.Userkey)
-		if user != nil {
-			c.Redirect(http.StatusAccepted, "/dashboard")
-			return
-		}
+		log.Println("User from followers get handler: ", user)
+		// if user != nil {
+		// 	log.Println("Inside if")
+		// 	c.Redirect(http.StatusAccepted, "/dashboard")
+		// 	return
+		// }
 		
-		username := c.Request.URL.Path[len("/followers/"):]
+		username := c.Request.URL.Path
+		// [len("/followers/"):]
+		log.Println("Username: ", username)
 		userFollowers := globals.Followers[username]
 		log.Println("Followers: ", userFollowers)
 		// userFollowers := []string{} 
