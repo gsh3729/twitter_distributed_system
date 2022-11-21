@@ -48,6 +48,8 @@ func ConnectPostHandler() gin.HandlerFunc {
 		userFollowing := globals.Following[user.(string)]
 		userFollowing = append(userFollowing, connectTo)
 
+		log.Println("Following: ", userFollowing)
+
 		userFollowers := globals.Followers[connectTo]
 		userFollowers = append(userFollowers, user.(string))
 
