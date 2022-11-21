@@ -4,10 +4,9 @@
     <h1 class="title">
       Twitter v0.1
     </h1>
-    <p>{{range .Tournaments}}
-
-        {{.Place}}, {{.Date}}
-{{end}}</p>
+    {{range $index, $value := .content}}
+        <p>{{.index}}, {{.value}}</p>
+    {{end}}
   </div>
 </section>
 {{template "footer.html"}}
