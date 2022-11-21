@@ -8,7 +8,16 @@
     {{range $index, $value := .content}}
         <p>
           {{$index}}, {{$value}} 
-          <form action="signup" method="post"></form>
+          <form action="connect" method="post">
+            <div class="field">
+              <label class="label">Password</label>
+              <div class="control">
+                <input class="input" type="password" placeholder="Enter Password" name="password" required>
+              </div>
+            </div>
+            <div class="field">
+              <button class="button is-link">{{$value}}</button>
+            </div>
           </form>
         </p>
     {{end}}
