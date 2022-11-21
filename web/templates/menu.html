@@ -1,11 +1,14 @@
 
 {{define "menu.html"}}
 <aside class="menu" style="background-color: whitesmoke ;padding: 10px;">
+  <p class="menu-label">
+    {{.user}}'s Features
+  </p>
   <div class="buttons">
-    <a class="button is-primary" href="/signup">
+    <a class="button is-primary" href="/home">
       <strong>Home</strong>
     </a>
-    <a class="button is-primary" href="/login">
+    <a class="button is-primary" href="/composet">
       <strong>Compose</strong>
     </a>
   </div>
@@ -13,13 +16,13 @@
     {{.user}}'s Profile
   </p>
   <ul class="menu-list">
-    <li><a>Home</a></li>
-    <li><a>List Products</a></li>
+    <!-- <li><a>Home</a></li>
+    <li><a>List Products</a></li> -->
     <div class="buttons">
-      <a class="button is-primary" href="/signup">
+      <a class="button is-primary" href="/followers">
         <strong>Followers</strong>
       </a>
-      <a class="button is-primary" href="/login">
+      <a class="button is-primary" href="/following">
         <strong>Following</strong>
       </a>
     </div>
