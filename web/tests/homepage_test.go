@@ -9,7 +9,7 @@ import (
 	// . "."
 )
 
-func TestTweeting(t *testing.T) {
+func TestHomepageFeed(t *testing.T) {
 	RegisterFailHandler(Fail)
 	RunSpecs(t, "Posting a tweet")
 }

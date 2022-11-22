@@ -9,9 +9,9 @@ import (
 	// . "."
 )
 
-func TestTweeting(t *testing.T) {
+func TestFollowers(t *testing.T) {
 	RegisterFailHandler(Fail)
-	RunSpecs(t, "Posting a tweet")
+	RunSpecs(t, "Testing followers")
 }
 
 var _ = Describe("Tweet", func() {
