@@ -15,7 +15,7 @@ func TestHomepageFeed(t *testing.T) {
 }
 
 var _ = Describe("Tweet", func() {
-	Context("when a tweet is posted", func() {
+	Context("when a tweet is posted, checking the timeline", func() {
 		
 	})
 

@@ -15,7 +15,7 @@ func TestFollowers(t *testing.T) {
 }
 
 var _ = Describe("Tweet", func() {
-	Context("when a tweet is posted", func() {
+	Context("when a user connects to another user", func() {
 		
 	})
 
