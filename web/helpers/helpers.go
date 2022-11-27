@@ -27,3 +27,12 @@ func CheckUserPass(username, password string) bool {
 func EmptyUserPass(username, password string) bool {
 	return strings.Trim(username, " ") == "" || strings.Trim(password, " ") == ""
 }
+
+func StringInSlice(a string, list []string) bool {
+	for _, b := range list {
+		if b == a {
+			return true
+		}
+	}
+	return false
+}

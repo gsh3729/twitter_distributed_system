@@ -3,7 +3,6 @@ package controllers
 import (
 	"github.com/gin-contrib/sessions"
 
-	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -18,7 +17,6 @@ func FollowersGetHandler() gin.HandlerFunc {
 		user := session.Get(globals.Userkey)
 
 		username := user.(string)
-		log.Println("Username: ", username)
 		userFollowers := globals.Followers[username]
 
 		c.HTML(http.StatusOK, "followers.html", gin.H{

@@ -7,8 +7,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"log"
 	globals "proj/web/globals"
+	helpers "proj/web/helpers"
 )
 
 func ConnectPostHandler() gin.HandlerFunc {
@@ -18,9 +18,10 @@ func ConnectPostHandler() gin.HandlerFunc {
 
 		connectTo := c.PostForm("connectTo")
 
-		if globals.
-		globals.Following[user.(string)] = append(globals.Following[user.(string)], connectTo)
-		globals.Followers[connectTo] = append(globals.Followers[connectTo], user.(string))
+		if !helpers.StringInSlice(connectTo, globals.Following[user.(string)]) {
+			globals.Following[user.(string)] = append(globals.Following[user.(string)], connectTo)
+			globals.Followers[connectTo] = append(globals.Followers[connectTo], user.(string))
+		}
 
 		c.Redirect(http.StatusMovedPermanently, "/dashboard")
 	}
