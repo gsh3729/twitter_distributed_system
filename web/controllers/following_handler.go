@@ -8,6 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 
 	globals "proj/web/globals"
+	helpers "proj/web/helpers"
 )
 
 func FollowingGetHandler() gin.HandlerFunc {
@@ -15,12 +16,24 @@ func FollowingGetHandler() gin.HandlerFunc {
 		session := sessions.Default(c)
 		user := session.Get(globals.Userkey)
 
-		username := c.Param("userId")
+		username := user.(string)
 		userFollowers := globals.Following[username]
 
 		c.HTML(http.StatusOK, "following.html", gin.H{
 			"content": userFollowers,
 			"user":    user,
 		})
+	}
+}
+
+func UnfollowPostHandler() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		session := sessions.Default(c)
+		user := session.Get(globals.Userkey)
+		username := user.(string)
+
+
+
+		c.Redirect(http.StatusMovedPermanently, "/dashboard")
 	}
 }

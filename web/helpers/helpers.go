@@ -36,3 +36,8 @@ func StringInSlice(a string, list []string) bool {
 	}
 	return false
 }
+
+func RemoveFromSlice(s []int, i int) []int {
+	s[i] = s[len(s)-1]
+	return s[:len(s)-1]
+}
