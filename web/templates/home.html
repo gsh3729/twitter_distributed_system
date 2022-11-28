@@ -4,16 +4,14 @@
     <h1 class="title">
       Home page
     </h1>
-    <!-- <p>{{.content}}</p> -->
-    <!-- {{range $index, $value := .content}}
-        <p>
-          {{$index}}, {{$value}} 
-        </p>
-    {{end}} -->
     {{range $index, $value := .content}}
+      <div>
+        {{$value.User}}
         <p>
           {{$value.Text}} 
         </p>
+        {{$value.Time}}
+      </div>
     {{end}}
     
   </div>
