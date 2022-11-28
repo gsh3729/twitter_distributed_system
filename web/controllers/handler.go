@@ -110,7 +110,7 @@ func LogoutGetHandler() gin.HandlerFunc {
 			return
 		}
 
-		c.HTML(http.StatusOK, "index.html", gin.H{"content": "Logged out successfully"})
+		c.Redirect(http.StatusMovedPermanently, "/")
 	}
 }
 
