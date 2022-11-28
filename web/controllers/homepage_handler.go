@@ -9,7 +9,6 @@ import (
 
 	globals "proj/web/globals"
 	"proj/web/helpers"
-	"sort"
 )
 
 func HomepageGetHandler() gin.HandlerFunc {

@@ -38,17 +38,17 @@ func PublicRoutes(g *gin.RouterGroup) {
 }
 
 func PrivateRoutes(g *gin.RouterGroup) {
-	g.GET("/followers/:userId", controllers.FollowersGetHandler())
-	g.GET("/following/:userId", controllers.FollowingGetHandler())
-	
-	g.GET("/findP", controllers.FindPeopleGetHandler())
-	g.POST("/connect", controllers.ConnectPostHandler()) // /connect/harsha?connectTo=Tej
-	
-	g.GET("/composet", controllers.TweetGetHandler()) 
-	g.POST("/composet", controllers.TweetPostHandler())  
-	
+	g.GET("/followers", controllers.FollowersGetHandler())
+	g.GET("/following", controllers.FollowingGetHandler())
+
+	g.GET("/find", controllers.FindPeopleGetHandler())
+	g.POST("/connect", controllers.ConnectPostHandler())
+	g.POST("/unfollow", controllers.UnfollowPostHandler())
+
+	g.GET("/compose", controllers.TweetGetHandler())
+	g.POST("/compose", controllers.TweetPostHandler())
+
 	g.GET("/home", controllers.HomepageGetHandler())
-	
 	g.GET("/dashboard", controllers.DashboardGetHandler())
 	g.GET("/logout", controllers.LogoutGetHandler())
 
