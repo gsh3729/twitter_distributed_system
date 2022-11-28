@@ -5,15 +5,15 @@
       Home page
     </h1>
     {{range $index, $value := .content}}
-      <div>
-        {{$value.User}}
-        <p>
-          {{$value.Text}} 
-        </p>
-        {{$value.Time}}
-      </div>
+    <div>
+      {{$value.User}}
+      <p>
+        {{$value.Text}}
+      </p>
+      {{$value.Time}}
+    </div>
     {{end}}
-    
+
   </div>
 </section>
 {{template "footer.html"}}

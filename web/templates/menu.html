@@ -1,14 +1,13 @@
-
 {{define "menu.html"}}
 <aside class="menu" style="background-color: whitesmoke ;padding: 10px;">
   <p class="menu-label">
-    {{.user}}'s Features
+    Hello, {{.user}}
   </p>
   <div class="buttons">
-    <a class="button is-primary" href="/home">
+    <a class="button is-primary" href="/dashboard">
       <strong>Home</strong>
     </a>
-    <a class="button is-primary" href="/composet">
+    <a class="button is-primary" href="/compose">
       <strong>Compose</strong>
     </a>
   </div>
@@ -24,30 +23,13 @@
     {{.user}}'s Profile
   </p>
   <ul class="menu-list">
-    <!-- <li><a>Home</a></li>
-    <li><a>List Products</a></li> -->
     <div class="buttons">
-      <a class="button is-primary" href="/followers/{{.user}}">
+      <a class="button is-primary" href="/followers">
         <strong>Followers</strong>
       </a>
-      <a class="button is-primary" href="/following/{{.user}}">
+      <a class="button is-primary" href="/following">
         <strong>Following</strong>
       </a>
     </div>
-  <!-- </ul>
-    <p class="menu-label">
-    {{.user}}'s Library
-  </p>
-  <ul class="menu-list">
-    <li><a>List Items</a></li>
-  </ul> -->
-  <p class="menu-label">
-    Settings
-  </p>
-  <ul class="menu-list">
-    <li><a>Profile</a></li>
-    <li><a>Payments</a></li>
-    <li><a>Affiliates</a></li>
-  </ul>
 </aside>
 {{end}}
