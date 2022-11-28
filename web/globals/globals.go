@@ -13,6 +13,7 @@ var Followers = make(map[string][]string)
 type Tweet struct {
 	Time time.Time
 	Text string
+	User string
 }
 
 var Tweets = make(map[string][]Tweet)

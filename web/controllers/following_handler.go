@@ -33,9 +33,12 @@ func UnfollowPostHandler() gin.HandlerFunc {
 		username := user.(string)
 
 		unfollowPerson := c.PostForm("unfollowPerson")
-		i := helpers.IndexOf(unfollowPerson, globals.Following[username])
 
-		globals.Followers[username] = helpers.RemoveFromSlice(globals.Following[username], i)
+		i := helpers.IndexOf(unfollowPerson, globals.Following[username])
+		globals.Following[username] = helpers.RemoveFromSlice(globals.Following[username], i)
+
+		j := helpers.IndexOf(username, globals.Followers[unfollowPerson])
+		globals.Followers[unfollowPerson] = helpers.RemoveFromSlice(globals.Followers[unfollowPerson], j)
 
 		c.Redirect(http.StatusMovedPermanently, "/dashboard")
 	}

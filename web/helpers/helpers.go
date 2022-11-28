@@ -46,7 +46,9 @@ func IndexOf(element string, data []string) int {
 	return -1
 }
 
-func RemoveFromSlice(s []int, i int) []int {
+func RemoveFromSlice(s []string, i int) []string {
 	s[i] = s[len(s)-1]
 	return s[:len(s)-1]
 }
+
+func GetTweetsForHomepage(username string) []
