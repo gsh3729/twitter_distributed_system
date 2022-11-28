@@ -8,6 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 
 	globals "proj/web/globals"
+	"proj/web/helpers"
 	"sort"
 )
 
@@ -16,7 +17,7 @@ func HomepageGetHandler() gin.HandlerFunc {
 		session := sessions.Default(c)
 		user := session.Get(globals.Userkey)
 
-
+		feed := helpers.GetTweetsForHomepage(user.(string))
 
 		c.HTML(http.StatusOK, "home.html", gin.H{
 			"content": feed,

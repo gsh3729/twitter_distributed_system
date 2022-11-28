@@ -2,6 +2,7 @@ package helpers
 
 import (
 	"log"
+	"sort"
 	"strings"
 
 	globals "proj/web/globals"
@@ -51,4 +52,21 @@ func RemoveFromSlice(s []string, i int) []string {
 	return s[:len(s)-1]
 }
 
-func GetTweetsForHomepage(username string) []
+func GetTweetsForHomepage(username string) []globals.Tweet {
+	var feed []globals.Tweet
+
+	for _, tweet := range globals.Tweets[username] {
+		feed = append(feed, tweet)
+	}
+
+	for _, element := range globals.Following[username] {
+		for _, tweet := range globals.Tweets[element] {
+			feed = append(feed, tweet)
+		}
+	}
+
+	sort.SliceStable(feed[:], func(i, j int) bool {
+		return feed[i].Time.Before(feed[j].Time)
+	})
+	return feed
+}
