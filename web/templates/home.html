@@ -1,19 +1,17 @@
 {{template "header.html" .}}
 <section class="section">
   <div class="container">
-    <h1 class="title">
-      Home page
-    </h1>
     {{range $index, $value := .content}}
     <div>
-      {{$value.User}}
+      <h1>
+        {{$value.User}}
+      </h1>
       <p>
         {{$value.Text}}
       </p>
-      {{$value.Time}}
     </div>
+    <hr>
     {{end}}
-
   </div>
 </section>
 {{template "footer.html"}}
