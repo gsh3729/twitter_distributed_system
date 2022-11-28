@@ -8,7 +8,17 @@
     <div class="columns">
       <div class="column is-one-third">{{template "menu.html" .}}</div>
       <div class="column is-two-thirds">
-        <p style="background-color: whitesmoke; padding: 10px;">{{.content}}</p>
+        {{range $index, $value := .content}}
+        <div>
+          <h1>
+            {{$value.User}}
+          </h1>
+          <p>
+            {{$value.Text}}
+          </p>
+        </div>
+        <hr>
+        {{end}}
       </div>
     </div>
   </div>

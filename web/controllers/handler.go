@@ -99,7 +99,7 @@ func LogoutGetHandler() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		session := sessions.Default(c)
 		user := session.Get(globals.Userkey)
-		log.Println("logging out user:", user)
+
 		if user == nil {
 			log.Println("Invalid session token")
 			return
@@ -119,8 +119,7 @@ func IndexGetHandler() gin.HandlerFunc {
 		session := sessions.Default(c)
 		user := session.Get(globals.Userkey)
 		c.HTML(http.StatusOK, "index.html", gin.H{
-			"content": "",
-			"user":    user,
+			"user": user,
 		})
 	}
 }
@@ -129,8 +128,9 @@ func DashboardGetHandler() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		session := sessions.Default(c)
 		user := session.Get(globals.Userkey)
+		feed := helpers.GetTweetsForHomepage(user.(string))
 		c.HTML(http.StatusOK, "dashboard.html", gin.H{
-			"content": "",
+			"content": feed,
 			"user":    user,
 		})
 	}
