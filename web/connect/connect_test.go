@@ -1,4 +1,4 @@
-package tests
+package connect
 
 import (
 	"testing"
