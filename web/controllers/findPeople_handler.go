@@ -8,7 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 
 	globals "proj/web/globals"
-	// helpers "proj/web/helpers"
+	findPeople "proj/web/findPeople"
 )
 
 func FindPeopleGetHandler() gin.HandlerFunc {
@@ -16,13 +16,7 @@ func FindPeopleGetHandler() gin.HandlerFunc {
 		session := sessions.Default(c)
 		user := session.Get(globals.Userkey)
 
-		people := []string{}
-		for key := range globals.UserPass {
-
-			if key != user {
-				people = append(people, key)
-			}
-		}
+		people := findPeople.GetPeopleForUser(user.(string))
 
 		c.HTML(http.StatusOK, "findPeople.html", gin.H{
 			"content": people,
