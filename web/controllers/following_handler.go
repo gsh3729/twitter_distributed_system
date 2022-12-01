@@ -8,6 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 
 	globals "proj/web/globals"
+	following "proj/web/following"
 )
 
 func FollowingGetHandler() gin.HandlerFunc {

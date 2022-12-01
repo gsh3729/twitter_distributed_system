@@ -1,4 +1,4 @@
-package tests
+package homepage
 
 import (
 	"testing"
