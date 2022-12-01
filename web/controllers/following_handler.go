@@ -17,10 +17,10 @@ func FollowingGetHandler() gin.HandlerFunc {
 		user := session.Get(globals.Userkey)
 
 		username := user.(string)
-		userFollowers := following.GetUserFollowing(username)
+		userFollowing := following.GetUserFollowing(username)
 
 		c.HTML(http.StatusOK, "following.html", gin.H{
-			"content": userFollowers,
+			"content": userFollowing,
 			"user":    user,
 		})
 	}

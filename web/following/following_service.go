@@ -9,6 +9,6 @@ import (
 )
 
 func GetUserFollowing(username string) []string {
-	userFollowers := globals.Following[username]
-	return userFollowers
+	userFollowing := globals.Following[username]
+	return userFollowing
 } 
