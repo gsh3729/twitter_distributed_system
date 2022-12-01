@@ -15,7 +15,7 @@ func PostTweet(username string, tweetMsg string) bool {
 		User: username,
 	}
 
-	globals.Tweets[username] = append(globals.Tweets[user.(string)], tweet)
+	globals.Tweets[username] = append(globals.Tweets[username], tweet)
 
 	return true
 } 

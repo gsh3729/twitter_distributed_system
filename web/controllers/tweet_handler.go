@@ -8,8 +8,8 @@ import (
 	"github.com/gin-gonic/gin"
 
 	globals "proj/web/globals"
+	tweet "proj/web/tweet"
 
-	"time"
 )
 
 func TweetGetHandler() gin.HandlerFunc {
@@ -30,13 +30,7 @@ func TweetPostHandler() gin.HandlerFunc {
 
 		tweetMsg := c.PostForm("tweetMsg")
 
-		tweet := globals.Tweet{
-			Time: time.Now(),
-			Text: tweetMsg,
-			User: user.(string),
-		}
-
-		globals.Tweets[user.(string)] = append(globals.Tweets[user.(string)], tweet)
+		tweet.PostTweet(user.(string), tweetMsg)
 
 		c.Redirect(http.StatusMovedPermanently, "/dashboard")
 	}
