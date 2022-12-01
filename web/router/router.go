@@ -42,7 +42,7 @@ func PrivateRoutes(g *gin.RouterGroup) {
 	g.GET("/following", controllers.FollowingGetHandler())
 
 	g.GET("/find", controllers.FindPeopleGetHandler())
-	g.POST("/connect", controllers.ConnectPostHandler())
+	g.POST("/connect", controllers.FollowPostHandler())
 	g.POST("/unfollow", controllers.UnfollowPostHandler())
 
 	g.GET("/compose", controllers.TweetGetHandler())

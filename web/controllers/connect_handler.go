@@ -12,7 +12,7 @@ import (
 	connect "proj/web/connect"
 )
 
-func ConnectPostHandler() gin.HandlerFunc {
+func FollowPostHandler() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		session := sessions.Default(c)
 		user := session.Get(globals.Userkey)
@@ -33,6 +33,7 @@ func UnfollowPostHandler() gin.HandlerFunc {
 
 		unfollowPerson := c.PostForm("unfollowPerson")
 
+		connect.Unfollow(username, unfollowPerson)
 		
 		c.Redirect(http.StatusMovedPermanently, "/dashboard")
 	}

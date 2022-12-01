@@ -10,6 +10,7 @@ import (
 
 	globals "proj/web/globals"
 	helpers "proj/web/helpers"
+	homepage "proj/web/homepage"
 )
 
 func SignupGetHandler() gin.HandlerFunc {
@@ -128,7 +129,7 @@ func DashboardGetHandler() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		session := sessions.Default(c)
 		user := session.Get(globals.Userkey)
-		feed := helpers.GetTweetsForHomepage(user.(string))
+		feed := homepage.GetTweetsForHomepage(user.(string))
 		c.HTML(http.StatusOK, "dashboard.html", gin.H{
 			"content": feed,
 			"user":    user,
