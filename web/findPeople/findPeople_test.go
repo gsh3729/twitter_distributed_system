@@ -1,6 +1,6 @@
 package findPeople
 
-mport (
+import (
 	"testing"
 
 	. "github.com/onsi/ginkgo"
@@ -15,7 +15,7 @@ func TestFollowers(t *testing.T) {
 }
 
 var _ = Describe(" ", func() {
-	Context("when a user connects to another user", func() {
+	Context(" ", func() {
 		
 	})
 
