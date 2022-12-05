@@ -25,7 +25,9 @@ var _ = Describe("Connect", func() {
 	})
 
 	Context("when follow req is issued", func() {
-		// Expect(book.AuthorLastName()).To(Equal("Hugo"))
+		// It("interprets the single author name as a last name", func() {
+		// 	Expect(book.AuthorLastName()).To(Equal("Hugo"))
+		// })
 		Follow()
 	})
 
