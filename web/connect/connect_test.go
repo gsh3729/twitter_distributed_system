@@ -6,7 +6,7 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
-	// . "."
+	. "proj/web/connect"
 ) 
 
 func TestConnect(t *testing.T) {
@@ -15,8 +15,22 @@ func TestConnect(t *testing.T) {
 }
 
 var _ = Describe("Connect", func() {
-	Context("when a connection is requested", func() {
-		
+	BeforeEach(func() {
+		// book = &books.Book{
+		//   Title: "Les Miserables",
+		//   Author: "Victor Hugo",
+		//   Pages: 2783,
+		// }
+		// Expect(book.IsValid()).To(BeTrue())
+	})
+
+	Context("when follow req is issued", func() {
+		// Expect(book.AuthorLastName()).To(Equal("Hugo"))
+		Follow()
+	})
+
+	Context("when unfollow req is issued", func() {
+		Unfollow()
 	})
 
 })
