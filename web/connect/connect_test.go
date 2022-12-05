@@ -1,4 +1,4 @@
-package connect_tests
+package connect_test
 
 import (
 	"testing"
