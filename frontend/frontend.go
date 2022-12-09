@@ -1,9 +1,8 @@
 package frontend
 
 import (
+	routes "proj/frontend/router"
 	middleware "proj/web/auth"
-	globals "proj/web/globals"
-	routes "proj/web/router"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
@@ -16,7 +15,7 @@ func main() {
 	router.Static("/assets", "./assets")
 	router.LoadHTMLGlob("web/templates/*.html")
 
-	router.Use(sessions.Sessions("session", cookie.NewStore(globals.Secret)))
+	router.Use(sessions.Sessions("session", cookie.NewStore([]byte("secret"))))
 
 	public := router.Group("/")
 	routes.PublicRoutes(public)
