@@ -1,8 +1,8 @@
 package frontend
 
 import (
+	middleware "proj/frontend/auth"
 	routes "proj/frontend/router"
-	middleware "proj/web/auth"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
