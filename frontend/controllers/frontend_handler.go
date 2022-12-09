@@ -2,11 +2,9 @@ package controllers
 
 import (
 	"log"
-
-	"github.com/gin-contrib/sessions"
-
 	"net/http"
 
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 
 	connect "proj/web/connect"
@@ -14,8 +12,9 @@ import (
 	followers "proj/web/followers"
 	following "proj/web/following"
 	globals "proj/web/globals"
-	"proj/web/helpers"
+	helpers "proj/web/helpers"
 	homepage "proj/web/homepage"
+	tweet "proj/web/tweet"
 )
 
 func SignupGetHandler() gin.HandlerFunc {
@@ -155,10 +154,6 @@ func HomepageGetHandler() gin.HandlerFunc {
 		})
 	}
 }
-
-tweet "proj/web/tweet"
-
-)
 
 func TweetGetHandler() gin.HandlerFunc {
 	return func(c *gin.Context) {

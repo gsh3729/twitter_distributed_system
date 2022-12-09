@@ -9,7 +9,6 @@ import (
 
 	globals "proj/web/globals"
 	tweet "proj/web/tweet"
-
 )
 
 func TweetGetHandler() gin.HandlerFunc {
