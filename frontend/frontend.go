@@ -13,7 +13,7 @@ func main() {
 	router := gin.Default()
 
 	router.Static("/assets", "./assets")
-	router.LoadHTMLGlob("web/templates/*.html")
+	router.LoadHTMLGlob("frontend/templates/*.html")
 
 	router.Use(sessions.Sessions("session", cookie.NewStore([]byte("secret"))))
 
