@@ -1,3 +1,3 @@
-module twitter/backend
+module proj/backend
 
 go 1.19
