@@ -1,4 +1,4 @@
-package proj/backend
+package backend
 
 import (
 	"context"
