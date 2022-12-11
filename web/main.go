@@ -1,6 +1,13 @@
 package web
 
 import (
+	"context"
+	"flag"
+	"fmt"
+	"log"
+	"net"
+
+	"google.golang.org/grpc"
 	middleware "proj/web/auth"
 	globals "proj/web/globals"
 	routes "proj/web/router"
@@ -8,6 +15,10 @@ import (
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
+)
+
+var (
+	port = flag.Int("port", 50051, "The server port")
 )
 
 func main() {
