@@ -1,9 +1,7 @@
 package homepage
 
 import (
-	// "log"
 	"sort"
-	// "strings"
 
 	globals "proj/web/globals"
 )
