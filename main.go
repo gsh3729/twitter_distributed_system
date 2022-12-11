@@ -1,9 +1,9 @@
 package main
 
 import (
+	routes "proj/frontend/router"
 	middleware "proj/web/auth"
 	globals "proj/web/globals"
-	routes "proj/web/router"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
