@@ -10,16 +10,12 @@ import (
 	"github.com/hashicorp/raft"
 )
 
-type rpcInterface struct {
-	// wordTracker *wordTracker
-	raft        *raft.Raft
-}
 
-func (r rpcInterface) SignUp(ctx context.Context, req *pb.SignUpRequest) (*pb.SignUpResponse, error) {
-	f := r.raft.Apply([]byte(req.GetUsername()), time.Second)
-	if err := f.Error(); err != nil {
-		return nil, rafterrors.MarkRetriable(err)
-	}
+func SignUp(ctx context.Context, req *pb.SignUpRequest) (*pb.SignUpResponse, error) {
+	// f := r.raft.Apply([]byte(req.GetUsername()), time.Second)
+	// if err := f.Error(); err != nil {
+	// 	return nil, rafterrors.MarkRetriable(err)
+	// }
 	globals.UserPass[req.GetUsername] = req.GetPassword
 	return &pb.SignUpResponse{
 		Username: req.GetUsername(),
@@ -27,10 +23,10 @@ func (r rpcInterface) SignUp(ctx context.Context, req *pb.SignUpRequest) (*pb.Si
 }
 
 
-func SignUp(username string, password string) string {
-	globals.UserPass[username] = password
-	return username
-}
+// func SignUp(username string, password string) string {
+// 	globals.UserPass[username] = password
+// 	return username
+// }
 
 func SignIn(username string, password string) bool {
 	return CheckUserPass(username, password)
