@@ -5,7 +5,7 @@ import (
 	"log"
 	globals "backend/globals"
 	// helpers "backend/helpers"
-	pb "proto"
+	pb "auth/proto"
 )
 
 
