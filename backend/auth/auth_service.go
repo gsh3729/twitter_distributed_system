@@ -5,9 +5,7 @@ import (
 	"log"
 	globals "backend/globals"
 	// helpers "backend/helpers"
-	pb "backend/auth/proto"
-	"github.com/Jille/raft-grpc-leader-rpc/rafterrors"
-	"github.com/hashicorp/raft"
+	pb "proto"
 )
 
 
@@ -16,7 +14,7 @@ func SignUp(ctx context.Context, req *pb.SignUpRequest) (*pb.SignUpResponse, err
 	// if err := f.Error(); err != nil {
 	// 	return nil, rafterrors.MarkRetriable(err)
 	// }
-	globals.UserPass[req.GetUsername] = req.GetPassword
+	globals.UserPass[req.GetUsername()] = req.GetPassword()
 	return &pb.SignUpResponse{
 		Username: req.GetUsername(),
 	}, nil
