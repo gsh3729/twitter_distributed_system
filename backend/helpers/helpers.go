@@ -1,27 +1,27 @@
 package helpers
 
 import (
-	"log"
+	// "log"
 
-	globals "backend/globals"
+	// globals "backend/globals"
 )
 
-func CheckUserPass(username, password string) bool {
-	userpass := globals.UserPass
+// func CheckUserPass(username, password string) bool {
+// 	userpass := globals.UserPass
 
-	log.Println("checkUserPass", username, password, userpass)
+// 	log.Println("checkUserPass", username, password, userpass)
 
-	if val, ok := userpass[username]; ok {
-		log.Println(val, ok)
-		if val == password {
-			return true
-		} else {
-			return false
-		}
-	} else {
-		return false
-	}
-}
+// 	if val, ok := userpass[username]; ok {
+// 		log.Println(val, ok)
+// 		if val == password {
+// 			return true
+// 		} else {
+// 			return false
+// 		}
+// 	} else {
+// 		return false
+// 	}
+// }
 
 func StringInSlice(a string, list []string) bool {
 	for _, b := range list {
