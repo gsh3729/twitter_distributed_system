@@ -1,24 +1,28 @@
 syntax = "proto3";
 package auth;
+
 option go_package = "github.com/Jille/raft-grpc-example/proto";
 
 service Auth {
-	rpc SignUp(AddWordRequest) returns (AddWordResponse) {}
-	rpc SignIn(GetWordsRequest) returns (GetWordsResponse) {}
+	rpc SignUp(SignUpRequest) returns (SignUpResponse) {}
+	rpc SignIn(SignInRequest) returns (SignInResponse) {}
 }
 
-message AddWordRequest {
-	string word = 1;
+message SignUpRequest {
+	string username = 1;
+	string password = 1;
 }
 
-message AddWordResponse {
+message SignUpResponse {
 	uint64 commit_index = 1;
 }
 
-message GetWordsRequest {
+message SignInRequest {
+	string username = 1;
+	string password = 1;
 }
 
-message GetWordsResponse {
+message SignInResponse {
 	uint64 read_at_index = 1;
 	repeated string best_words = 2;
 }
