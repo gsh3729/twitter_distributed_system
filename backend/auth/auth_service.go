@@ -5,7 +5,15 @@ import (
 	"log"
 	globals "backend/globals"
 	// helpers "backend/helpers"
+	pb "backend/auth/proto"
+	"github.com/Jille/raft-grpc-leader-rpc/rafterrors"
+	"github.com/hashicorp/raft"
 )
+
+type rpcInterface struct {
+	// wordTracker *wordTracker
+	raft        *raft.Raft
+}
 
 func (r rpcInterface) AddWord(ctx context.Context, req *pb.AddWordRequest) (*pb.AddWordResponse, error) {
 	f := r.raft.Apply([]byte(req.GetWord()), time.Second)
