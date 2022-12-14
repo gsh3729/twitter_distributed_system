@@ -23,5 +23,5 @@ message SignInRequest {
 }
 
 message SignInResponse {
-	bool signInResponse = false; //check default value
+	bool signin_response = false; //check default value
 }
