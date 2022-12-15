@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+option go_package = "./connect";
+
+package connect;
+
+message FollowRequest{
+    string user1 = 1;
+    string user2 = 2;
+}
+
+message FollowResponse{
+    bool success = 1;
+}
+
+message UnfollowRequest{
+    string user1 = 1;
+    string user2 = 2;
+}
+
+message UnfollowResponse{
+    bool success = 1;
+}
+
+
+service ConnectService{
+    rpc Follow(FollowRequest) returns (FollowResponse) {}
+    rpc Unfollow(UnfollowRequest) returns (UnfollowResponse) {}
+}

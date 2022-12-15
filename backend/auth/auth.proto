@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+option go_package = "./auth";
+
+package authentication;
+
+message UserSignUpRequest{
+    string username = 1;
+    string password = 2;
+}
+
+message UserSignUpResponse{
+    bool success = 1;
+}
+
+message UserSignInRequest{
+    string username = 1;
+    string password = 2;
+}
+
+message UserSignInResponse{
+    bool success = 1;
+    string username = 2;
+}
+
+
+service AuthService{
+    rpc SignUp(UserSignUpRequest) returns (UserSignUpResponse) {}
+    rpc SignIn(UserSignInRequest) returns (UserSignInResponse) {}
+}

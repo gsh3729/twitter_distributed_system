@@ -1,27 +1,33 @@
 package connect
 
 import (
+	context "context"
+
 	globals "backend/globals"
 	helpers "backend/helpers"
 )
 
-func Follow(username1 string, username2 string) bool {
-
-	if !helpers.StringInSlice(username2, globals.Following[username1]) {
-		globals.Following[username1] = append(globals.Following[username1], username2)
-		globals.Followers[username2] = append(globals.Followers[username2], username1)
-	}
-
-	return true
+type Server struct {
+	ConnectServiceServer
 }
 
-func Unfollow(username1 string, username2 string) bool {
+func (s *Server) Follow(ctx context.Context, in *FollowRequest) (*FollowResponse, error) {
 
-	i := helpers.IndexOf(username2, globals.Following[username1])
-	globals.Following[username1] = helpers.RemoveFromSlice(globals.Following[username1], i)
+	if !helpers.StringInSlice(in.User2, globals.Following[in.User1]) {
+		globals.Following[in.User1] = append(globals.Following[in.User1], in.User2)
+		globals.Followers[in.User2] = append(globals.Followers[in.User2], in.User1)
+	}
 
-	j := helpers.IndexOf(username1, globals.Followers[username2])
-	globals.Followers[username2] = helpers.RemoveFromSlice(globals.Followers[username2], j)
+	return &FollowResponse{Success: true}, nil
+}
 
-	return true
+func (s *Server) Unfollow(ctx context.Context, in *UnfollowRequest) (*UnfollowResponse, error) {
+
+	i := helpers.IndexOf(in.User2, globals.Following[in.User1])
+	globals.Following[in.User1] = helpers.RemoveFromSlice(globals.Following[in.User1], i)
+
+	j := helpers.IndexOf(in.User1, globals.Followers[in.User2])
+	globals.Followers[in.User2] = helpers.RemoveFromSlice(globals.Followers[in.User2], j)
+
+	return &UnfollowResponse{Success: true}, nil
 }

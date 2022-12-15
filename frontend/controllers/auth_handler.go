@@ -1,14 +1,19 @@
 package controllers
 
 import (
+	context "context"
+
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 
 	"log"
 	"net/http"
 
-	auth "backend/auth"
 	helpers "frontend/helpers"
+
+	"backend/auth"
+
+	"google.golang.org/grpc"
 )
 
 func SignupGetHandler() gin.HandlerFunc {
@@ -53,9 +58,26 @@ func SignupPostHandler() gin.HandlerFunc {
 			return
 		}
 
-		auth.SignUp(username, password)
+		var conn *grpc.ClientConn
+		conn, err2 := grpc.Dial(":9000", grpc.WithInsecure())
+		if err2 != nil {
+			log.Fatalf("Couldn't connect: %s", err2)
+		}
+		auth_server := auth.NewAuthServiceClient(conn)
+		response, err := auth_server.SignUp(context.Background(), &auth.UserSignUpRequest{
+			Username: username,
+			Password: password,
+		})
 
-		c.HTML(http.StatusCreated, "index.html", gin.H{"content": "Created user successfully"})
+		if err != nil {
+			log.Fatalf("Error when calling UserSignUp: %s", err)
+		}
+
+		if response.Success {
+			c.HTML(http.StatusCreated, "index.html", gin.H{"content": "Created user successfully"})
+		} else {
+			c.HTML(http.StatusInternalServerError, "index.html", gin.H{"content": "Something went wrong, try again later."})
+		}
 	}
 }
 
@@ -77,15 +99,31 @@ func LoginPostHandler() gin.HandlerFunc {
 			return
 		}
 
-		auth.SignIn(username, password)
+		var conn *grpc.ClientConn
+		conn, err2 := grpc.Dial(":9000", grpc.WithInsecure())
+		if err2 != nil {
+			log.Fatalf("Couldn't connect: %s", err2)
+		}
+		auth_server := auth.NewAuthServiceClient(conn)
+		response, err := auth_server.SignIn(context.Background(), &auth.UserSignInRequest{
+			Username: username,
+			Password: password,
+		})
 
-		session.Set("user", username)
-		if err := session.Save(); err != nil {
-			c.HTML(http.StatusInternalServerError, "login.html", gin.H{"content": "Failed to save session"})
-			return
+		if err != nil {
+			log.Fatalf("Error when calling UserSignIn: %s", err)
 		}
 
-		c.Redirect(http.StatusMovedPermanently, "/dashboard")
+		if response.Success {
+			session.Set("user", username)
+			if err := session.Save(); err != nil {
+				c.HTML(http.StatusInternalServerError, "login.html", gin.H{"content": "Failed to save session"})
+				return
+			}
+			c.Redirect(http.StatusMovedPermanently, "/dashboard")
+		} else {
+			c.HTML(http.StatusCreated, "index.html", gin.H{"content": "Invalid Username or password. Please check again."})
+		}
 	}
 }
 
@@ -98,12 +136,12 @@ func LogoutGetHandler() gin.HandlerFunc {
 			log.Println("Invalid session token")
 			return
 		}
-		session.Delete("user")
-		if err := session.Save(); err != nil {
-			log.Println("Failed to save session:", err)
-			return
-		}
 
-		c.Redirect(http.StatusMovedPermanently, "/")
+		session.Set("user", "")
+		session.Clear()
+		session.Options(sessions.Options{Path: "/", MaxAge: -1})
+		session.Save()
+
+		c.Redirect(http.StatusTemporaryRedirect, "/")
 	}
 }

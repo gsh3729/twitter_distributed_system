@@ -1,48 +1,22 @@
 package auth
 
 import (
-	"context"
-	"log"
+	context "context"
+
 	globals "backend/globals"
-	// helpers "backend/helpers"
-	pb "auth/proto"
+	helpers "backend/helpers"
 )
 
-
-func SignUp(ctx context.Context, req *pb.SignUpRequest) (*pb.SignUpResponse, error) {
-	// f := r.raft.Apply([]byte(req.GetUsername()), time.Second)
-	// if err := f.Error(); err != nil {
-	// 	return nil, rafterrors.MarkRetriable(err)
-	// }
-	globals.UserPass[req.GetUsername()] = req.GetPassword()
-	return &pb.SignUpResponse{
-		Username: req.GetUsername(),
-	}, nil
+type Server struct {
+	AuthServiceServer
 }
 
-
-// func SignUp(username string, password string) string {
-// 	globals.UserPass[username] = password
-// 	return username
-// }
-
-func SignIn(username string, password string) bool {
-	return CheckUserPass(username, password)
+func (s *Server) SignUp(ctx context.Context, in *UserSignUpRequest) (*UserSignUpResponse, error) {
+	globals.UserPass[in.Username] = in.Password
+	return &UserSignUpResponse{Success: true}, nil
 }
 
-func CheckUserPass(username, password string) bool {
-	userpass := globals.UserPass
-
-	log.Println("checkUserPass", username, password, userpass)
-
-	if val, ok := userpass[username]; ok {
-		log.Println(val, ok)
-		if val == password {
-			return true
-		} else {
-			return false
-		}
-	} else {
-		return false
-	}
+func (s *Server) SignIn(ctx context.Context, in *UserSignInRequest) (*UserSignInResponse, error) {
+	is_valid := helpers.CheckUserPass(in.Username, in.Password)
+	return &UserSignInResponse{Success: is_valid, Username: in.Username}, nil
 }
