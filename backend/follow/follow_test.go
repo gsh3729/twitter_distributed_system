@@ -35,13 +35,34 @@ import (
 
 // })
 
-func TestFollowers(t *testing.T) {
+func TestFollow(t *testing.T) {
 	var conn *grpc.ClientConn
 	conn, err2 := grpc.Dial(":9000", grpc.WithInsecure())
 	if err2 != nil {
 		log.Fatalf("Couldn't connect: %s", err2)
 	}
 	defer conn.Close()
+
+	var username1 string = "user1"
+	var username2 string = "user2"
+
+	follow_server := NewFollowServiceClient(conn)
+	response, err := follow_server.Follow(context.Background(), &FollowRequest{
+		User1: username1,
+		User2: username2,
+	})
+
+	if err != nil {
+		t.Fatalf("TestFollow failed: %v", err)
+	}
+
+	if !response.Success {
+		t.Error("TestFollow Failed")
+	}
+
+	
+
+	log.Printf("Follow working successfully")
 }
 
 func TestFollowing(t *testing.T) {
