@@ -36,6 +36,15 @@ import (
 // })
 
 func TestFollowers(t *testing.T) {
+	var conn *grpc.ClientConn
+	conn, err2 := grpc.Dial(":9000", grpc.WithInsecure())
+	if err2 != nil {
+		log.Fatalf("Couldn't connect: %s", err2)
+	}
+	defer conn.Close()
+}
+
+func TestFollowing(t *testing.T) {
 
 }
 
