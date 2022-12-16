@@ -73,10 +73,13 @@ func TestFollow(t *testing.T) {
 		t.Error("TestFollow Failed")
 	}
 
-	
+	for _, v := range resp.Users {
+		if v == username1 {
+			log.Printf("Follow working successfully")
+		}
+	}
 
-
-	log.Printf("Follow working successfully")
+	log.Printf("Follow not working successfully")
 }
 
 func TestUnfollow(t *testing.T) {
