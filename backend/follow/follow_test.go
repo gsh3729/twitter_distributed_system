@@ -60,7 +60,7 @@ func TestFollow(t *testing.T) {
 		t.Error("TestFollow Failed")
 	}
 
-	
+	// check the contents of followers
 
 	log.Printf("Follow working successfully")
 }
