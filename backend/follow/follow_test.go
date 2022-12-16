@@ -61,12 +61,28 @@ func TestFollow(t *testing.T) {
 	}
 
 	// check the contents of followers
+	resp, err := follow_server.GetUserFollowers(context.Background(), &GetFollowersRequest{
+		Username: username2,
+	})
+
+	if err != nil {
+		t.Fatalf("TestFollow failed: %v", err)
+	}
+
+	if !resp.Success {
+		t.Error("TestFollow Failed")
+	}
+
+	
+
 
 	log.Printf("Follow working successfully")
 }
 
-func TestFollowing(t *testing.T) {
+func TestUnfollow(t *testing.T) {
 
 }
+
+
 
 
