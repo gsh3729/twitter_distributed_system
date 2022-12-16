@@ -1,22 +1,22 @@
 package helpers
 
-import (
-	globals "backend/globals"
-)
+// import (
+// 	globals "backend/globals"
+// )
 
-func CheckUserPass(username, password string) bool {
-	userpass := globals.UserPass
+// func CheckUserPass(username, password string) bool {
+// 	userpass := globals.UserPass
 
-	if val, ok := userpass[username]; ok {
-		if val == password {
-			return true
-		} else {
-			return false
-		}
-	} else {
-		return false
-	}
-}
+// 	if val, ok := userpass[username]; ok {
+// 		if val == password {
+// 			return true
+// 		} else {
+// 			return false
+// 		}
+// 	} else {
+// 		return false
+// 	}
+// }
 
 func StringInSlice(a string, list []string) bool {
 	for _, b := range list {

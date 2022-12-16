@@ -4,7 +4,7 @@ import (
 	context "context"
 
 	globals "backend/globals"
-	helpers "backend/helpers"
+	// helpers "backend/helpers"
 )
 
 type Server struct {
@@ -17,6 +17,20 @@ func (s *Server) SignUp(ctx context.Context, in *UserSignUpRequest) (*UserSignUp
 }
 
 func (s *Server) SignIn(ctx context.Context, in *UserSignInRequest) (*UserSignInResponse, error) {
-	is_valid := helpers.CheckUserPass(in.Username, in.Password)
+	is_valid := CheckUserPass(in.Username, in.Password)
 	return &UserSignInResponse{Success: is_valid, Username: in.Username}, nil
+}
+
+func CheckUserPass(username, password string) bool { //validate
+	userpass := globals.UserPass
+
+	if val, ok := userpass[username]; ok {
+		if val == password {
+			return true
+		} else {
+			return false
+		}
+	} else {
+		return false
+	}
 }
