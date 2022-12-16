@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+option go_package = "./tweet";
+
+package tweet;
+
+message GetTweetsRequest{
+    string username = 1;
+}
+
+message GetTweetsResponse{
+    repeated string Time = 1;
+    repeated string Text = 2;
+    repeated string User = 3;
+    bool success = 4;
+}
+
+message PostTweetRequest{
+    string username = 1;
+    string text = 2;
+}
+
+message PostTweetResponse{
+    bool success = 1;
+}
+
+service TweetService{
+    rpc GetTweets(GetTweetsRequest) returns (GetTweetsResponse) {}
+    rpc PostTweet(PostTweetRequest) returns (PostTweetResponse) {}
+}

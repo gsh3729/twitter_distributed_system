@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+option go_package = "./follow";
+
+package follow;
+
+message FollowRequest{
+    string user1 = 1;
+    string user2 = 2;
+}
+
+message FollowResponse{
+    bool success = 1;
+}
+
+message UnfollowRequest{
+    string user1 = 1;
+    string user2 = 2;
+}
+
+message UnfollowResponse{
+    bool success = 1;
+}
+
+message GetFollowersRequest{
+    string username = 1;
+}
+
+message GetFollowersResponse{
+    repeated string users = 1;
+    bool success = 2;
+}
+
+message GetFollowingRequest{
+    string username = 1;
+}
+
+message GetFollowingResponse{
+    repeated string users = 1;
+    bool success = 2;
+}
+
+message GetUsersRequest{
+    string username = 1;
+}
+
+message GetUsersResponse{
+    repeated string users = 1;
+    bool success = 2;
+}
+
+service FollowService{
+    rpc Follow(FollowRequest) returns (FollowResponse) {}
+    rpc Unfollow(UnfollowRequest) returns (UnfollowResponse) {}
+    rpc GetUserFollowers(GetFollowersRequest) returns (GetFollowersResponse) {}
+    rpc GetUserFollowing(GetFollowingRequest) returns (GetFollowingResponse) {}
+    rpc GetUsers(GetUsersRequest) returns (GetUsersResponse) {}
+}
