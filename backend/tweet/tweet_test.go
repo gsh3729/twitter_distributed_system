@@ -32,10 +32,13 @@ func TestTweeting(t *testing.T) {
 	}
 	defer conn.Close()
 
+	var username string = "harshaG"
+	var tweet_text string = "Hi, this tweet is from harsha"
+
 	tweet_server := NewTweetServiceClient(conn)
 	response, err := tweet_server.PostTweet(context.Background(), &PostTweetRequest{
-		Username: "harsha",
-		Text:     "Hi, this tweet is from harsha",
+		Username: username,
+		Text:     tweet_text,
 	})
 
 	if err != nil {
@@ -46,7 +49,11 @@ func TestTweeting(t *testing.T) {
 		t.Error("TestTweeting Failed")
 	}
 
-	
+	// check the content is posted or not
+
+	// rep, err := tweet_server.GetTweets(context.Background(), &GetTweetsRequest{
+	// 	Username: username,
+	// })
 
 	log.Printf("Posted a new tweet successfully")
 }
