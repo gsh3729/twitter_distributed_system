@@ -26,5 +26,11 @@ func TestTweeting(t *testing.T) {
 	ctx := context.Background()
 	
 	defer conn.Close()
-	
+
+	tweet_server := NewTweetServiceClient(conn)
+	response, err := tweet_server.PostTweet(context.Background(), &PostTweetRequest{
+		Username: user.(string),
+		Text:     tweetMsg,
+	})
+
 }
