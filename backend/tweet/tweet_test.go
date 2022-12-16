@@ -2,8 +2,9 @@ package tweet
 
 import (
 	"testing"
-
+	"log"
 	"context"
+	"google.golang.org/grpc"
 	// . "github.com/onsi/ginkgo"
 	// . "github.com/onsi/gomega"
 
@@ -23,14 +24,27 @@ import (
 // })
 
 func TestTweeting(t *testing.T) {
-	ctx := context.Background()
-	
+	// ctx := context.Background()
+	var conn *grpc.ClientConn
+	conn, err2 := grpc.Dial(":9000", grpc.WithInsecure())
+	if err2 != nil {
+		log.Fatalf("Couldn't connect: %s", err2)
+	}
 	defer conn.Close()
 
 	tweet_server := NewTweetServiceClient(conn)
 	response, err := tweet_server.PostTweet(context.Background(), &PostTweetRequest{
-		Username: user.(string),
-		Text:     tweetMsg,
+		Username: "harsha",
+		Text:     "Hi, this tweet is from harsha",
 	})
 
+	if err != nil {
+		t.Fatalf("AddNewTweet failed: %v", err)
+	}
+
+	if !response.Success {
+		t.Error("Test Add New Tweet Failed")
+	}
+
+	log.Printf()
 }
