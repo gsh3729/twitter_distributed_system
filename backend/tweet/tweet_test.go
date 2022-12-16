@@ -39,12 +39,14 @@ func TestTweeting(t *testing.T) {
 	})
 
 	if err != nil {
-		t.Fatalf("AddNewTweet failed: %v", err)
+		t.Fatalf("TestTweeting failed: %v", err)
 	}
 
 	if !response.Success {
-		t.Error("Test Add New Tweet Failed")
+		t.Error("TestTweeting Failed")
 	}
 
-	log.Printf()
+	
+
+	log.Printf("Posted a new tweet successfully")
 }
