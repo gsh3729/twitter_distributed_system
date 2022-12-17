@@ -55,9 +55,11 @@ func TestTweeting(t *testing.T) {
 
 	// convert response to list of struct 
 
-	// rep, err := tweet_server.GetTweets(context.Background(), &GetTweetsRequest{
-	// 	Username: username,
-	// })
+	for _, v := range resp.Users {
+		if v == username1 {
+			log.Printf("Follow working successfully")
+		}
+	}
 
 	log.Printf("Posted a new tweet successfully")
 }
