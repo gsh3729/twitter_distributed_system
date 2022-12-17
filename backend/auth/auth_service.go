@@ -1,6 +1,12 @@
 package auth
 
 import (
+	"encoding/json"
+	"net/http"
+	"fmt"
+	"io/ioutil"
+	"os/exec"
+
 	context "context"
 
 	globals "backend/globals"
@@ -11,7 +17,22 @@ type Server struct {
 	AuthServiceServer
 }
 
+type User struct {
+	Username string
+	Password string
+}
+
 func (s *Server) SignUp(ctx context.Context, in *UserSignUpRequest) (*UserSignUpResponse, error) {
+	var users = 
+	resp, err := http.Get("http://127.0.0.1:12380/users")
+	if err != nil {
+		fmt.Println(err)
+	}
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Println(err)
+	}
+
 	globals.UserPass[in.Username] = in.Password
 	return &UserSignUpResponse{Success: true}, nil
 }
