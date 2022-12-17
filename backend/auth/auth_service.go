@@ -6,8 +6,11 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os/exec"
+	"time"
 
 	context "context"
+
+	clientv3 "go.etcd.io/etcd/client/v3"
 )
 
 type Server struct {
@@ -23,11 +26,17 @@ func (s *Server) SignUp(ctx context.Context, in *UserSignUpRequest) (*UserSignUp
 	var users = make(map[string]User)
 
 	// Get data from raft
-	resp, err := http.Get("http://127.0.0.1:12380/users")
+	cli, err := clientv3.New(clientv3.Config{
+		Endpoints:   []string{"localhost:12380", "localhost:22380", "localhost:32380"},
+		DialTimeout: 5 * time.Second,
+	})
 	if err != nil {
 		fmt.Println(err)
 	}
-	body, err := ioutil.ReadAll(resp.Body)
+	defer cli.Close()
+
+	ctx, cancel := context.WithTimeout(context.Background(), timeout)
+	body, err := ioutil.ReadAll(cli.Get())
 	if err != nil {
 		fmt.Println(err)
 	}
