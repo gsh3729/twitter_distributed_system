@@ -13,7 +13,6 @@ import (
 
 
 func TestAuth(t *testing.T) {
-	// ctx := context.Background()
 	var conn *grpc.ClientConn
 	conn, err2 := grpc.Dial(":9000", grpc.WithInsecure())
 	if err2 != nil {
@@ -25,25 +24,31 @@ func TestAuth(t *testing.T) {
 	var password string = "proj123"
 
 	auth_server := NewAuthServiceClient(conn)
-	response, err := tweet_server.SignUp(context.Background(), &UserSignUpRequest{
+	response, err := auth_server.SignUp(context.Background(), &UserSignUpRequest{
 		Username: username,
 		Password: password,
 	})
 
 	if err != nil {
-		t.Fatalf("TestAuth failed: %v", err)
+		t.Fatalf("TestAuth signup failed: %v", err)
 	}
 
 	if !response.Success {
-		t.Error("TestAuth Failed")
+		t.Error("TestAuth signup Failed")
 	}
 
+	resp, err := auth_server.SignIn(context.Background(), &UserSignInRequest{
+		Username: username,
+		Password: password,
+	})
 
-	// check the content is posted or not
+	if err != nil {
+		t.Fatalf("TestAuth signin failed: %v", err)
+	}
 
-	// rep, err := tweet_server.GetTweets(context.Background(), &GetTweetsRequest{
-	// 	Username: username,
-	// })
+	if !resp.Success {
+		t.Error("TestAuth signin Failed")
+	}
 
-	log.Printf("Posted a new tweet successfully")
+	log.Printf("Auth tests passed successfully")
 }
