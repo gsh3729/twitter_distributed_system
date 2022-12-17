@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-option go_package = "./auth";
+option go_package = "./authbackend";
 
-package authentication;
+package authbackend;
 
 message UserSignUpRequest{
     string username = 1;
