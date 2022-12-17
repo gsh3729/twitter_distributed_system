@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"os/exec"
 
 	context "context"
 
@@ -40,12 +41,47 @@ func (s *Server) SignUp(ctx context.Context, in *UserSignUpRequest) (*UserSignUp
 		return &UserSignUpResponse{Success: false}, nil
 	}
 
-	
-	globals.UserPass[in.Username] = in.Password
+	newuser := users[in.Username]
+	newuser.Username = in.Username
+	newuser.Password = in.Password
+	users[in.Username] = newuser
+
+	usersjson, err := json.Marshal(users)
+	if err != nil {
+		fmt.Println(err)
+	}
+	cmd := exec.Command("curl", "-L", "http://127.0.0.1:12380/users", "-XPUT", "-d "+string(usersjson))
+
+	cmd.Run()
+
 	return &UserSignUpResponse{Success: true}, nil
 }
 
 func (s *Server) SignIn(ctx context.Context, in *UserSignInRequest) (*UserSignInResponse, error) {
+	var users = make(map[string]User)
+
+	// Get data from raft
+	resp, err := http.Get("http://127.0.0.1:12380/users")
+	if err != nil {
+		fmt.Println(err)
+	}
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	json.Unmarshal(body, &users)
+	if val, exists := users[in.Username]; !exists {
+		fmt.Println("User does not exist")
+		return &UserSignInResponse{Success: false}, nil
+	} else {
+		if val == in.Password {
+			return true
+		} else {
+			return false
+		}
+	}
+	
 	is_valid := CheckUserPass(in.Username, in.Password)
 	return &UserSignInResponse{Success: is_valid, Username: in.Username}, nil
 }
