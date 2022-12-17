@@ -21,26 +21,31 @@ type User struct {
 	Password string
 }
 
+var timeout = 5 * time.Second
+
 func (s *Server) SignUp(ctx context.Context, in *UserSignUpRequest) (*UserSignUpResponse, error) {
 	// var users = make(map[string]User)
 
 	// Get data from raft
 	cli, err := clientv3.New(clientv3.Config{
 		Endpoints:   []string{"localhost:12380", "localhost:22380", "localhost:32380"},
-		DialTimeout: 5 * time.Second,
+		DialTimeout: timeout,
 	})
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer cli.Close()
 
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-	resp, err := cli.Get(ctx, "users")
+	ctx2, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	resp, err := cli.Get(ctx2, "users")
 	cancel()
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Print(resp)
+
+	for _, ev := range resp.Kvs {
+		log.Printf("%s : %s\n", ev.Key, ev.Value)
+	}
 	// if _, exists := resp.Kvs[in.Username]; exists {
 	// 	log.Print("User already exists")
 	// 	return &UserSignUpResponse{Success: false}, nil
