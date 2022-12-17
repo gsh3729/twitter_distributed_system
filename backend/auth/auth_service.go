@@ -9,7 +9,7 @@ import (
 
 	context "context"
 
-	clientv3 "go.etcd.io/etcd/client/v2"
+	clientv3 "go.etcd.io/etcd/client/v3"
 )
 
 type Server struct {
