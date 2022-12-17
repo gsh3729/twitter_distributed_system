@@ -54,8 +54,9 @@ func TestTweeting(t *testing.T) {
 	log.Print(resp)
 
 	// convert response to list of struct 
+	var feed []globals.Tweet
 
-	for _, v := range resp.Users {
+	for _, v := range tweets {
 		if v == username1 {
 			log.Printf("Follow working successfully")
 		}
