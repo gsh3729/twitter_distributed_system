@@ -11,7 +11,7 @@ import (
 
 	helpers "frontend/helpers"
 
-	"backend/auth"
+	"backend/authbackend"
 
 	"google.golang.org/grpc"
 )
@@ -63,8 +63,8 @@ func SignupPostHandler() gin.HandlerFunc {
 		if err2 != nil {
 			log.Fatalf("Couldn't connect: %s", err2)
 		}
-		auth_server := auth.NewAuthServiceClient(conn)
-		response, err := auth_server.SignUp(context.Background(), &auth.UserSignUpRequest{
+		auth_server := authbackend.NewAuthServiceClient(conn)
+		response, err := auth_server.SignUp(context.Background(), &authbackend.UserSignUpRequest{
 			Username: username,
 			Password: password,
 		})
@@ -104,8 +104,8 @@ func LoginPostHandler() gin.HandlerFunc {
 		if err2 != nil {
 			log.Fatalf("Couldn't connect: %s", err2)
 		}
-		auth_server := auth.NewAuthServiceClient(conn)
-		response, err := auth_server.SignIn(context.Background(), &auth.UserSignInRequest{
+		auth_server := authbackend.NewAuthServiceClient(conn)
+		response, err := auth_server.SignIn(context.Background(), &authbackend.UserSignInRequest{
 			Username: username,
 			Password: password,
 		})

@@ -5,7 +5,7 @@ import (
 	"log"
 	"net"
 
-	"backend/auth"
+	"backend/authbackend"
 
 	"google.golang.org/grpc"
 )
@@ -16,11 +16,11 @@ func main() {
 		log.Fatalf("Failed to Listen to TCP: %v", err)
 	}
 
-	auth_server := auth.Server{}
+	auth_server := authbackend.Server{}
 
 	Server := grpc.NewServer()
 
-	auth.RegisterAuthServiceServer(Server, &auth_server)
+	authbackend.RegisterAuthServiceServer(Server, &auth_server)
 
 	if err := Server.Serve(lis); err != nil {
 		log.Fatalf("Failed to Listen to TCP: %s", err)
