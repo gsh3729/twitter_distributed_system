@@ -2,10 +2,9 @@ package auth
 
 import (
 	"encoding/json"
-	"net/http"
 	"fmt"
 	"io/ioutil"
-	"os/exec"
+	"net/http"
 
 	context "context"
 
@@ -23,7 +22,9 @@ type User struct {
 }
 
 func (s *Server) SignUp(ctx context.Context, in *UserSignUpRequest) (*UserSignUpResponse, error) {
-	var users = 
+	var users = make(map[string]User)
+
+	// Get data from raft
 	resp, err := http.Get("http://127.0.0.1:12380/users")
 	if err != nil {
 		fmt.Println(err)
@@ -33,6 +34,13 @@ func (s *Server) SignUp(ctx context.Context, in *UserSignUpRequest) (*UserSignUp
 		fmt.Println(err)
 	}
 
+	json.Unmarshal(body, &users)
+	if _, exists := users[in.Username]; exists {
+		fmt.Println("User already exists")
+		return &UserSignUpResponse{Success: false}, nil
+	}
+
+	
 	globals.UserPass[in.Username] = in.Password
 	return &UserSignUpResponse{Success: true}, nil
 }
