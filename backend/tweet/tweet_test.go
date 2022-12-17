@@ -5,26 +5,11 @@ import (
 	"log"
 	"context"
 	"google.golang.org/grpc"
-	// . "github.com/onsi/ginkgo"
-	// . "github.com/onsi/gomega"
-
-	// . "."
+	clientv3 "go.etcd.io/etcd/client/v3"
+	"time"
 )
 
-// func TestTweeting(t *testing.T) {
-// 	RegisterFailHandler(Fail)
-// 	RunSpecs(t, "Posting a tweet")
-// }
-
-// var _ = Describe("Tweet", func() {
-// 	Context("when a tweet is posted", func() {
-		
-// 	})
-
-// })
-
 func TestTweeting(t *testing.T) {
-	// ctx := context.Background()
 	var conn *grpc.ClientConn
 	conn, err2 := grpc.Dial(":9000", grpc.WithInsecure())
 	if err2 != nil {
@@ -50,6 +35,25 @@ func TestTweeting(t *testing.T) {
 	}
 
 	// check the content is posted or not
+
+	cli, err := clientv3.New(clientv3.Config{
+		Endpoints:   []string{"localhost:12380", "localhost:22380", "localhost:32380"},
+		DialTimeout: 5 * time.Second,
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer cli.Close()
+
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	resp, err := cli.Get(ctx, "tweets")
+	cancel()
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Print(resp)
+
+	// convert response to list of struct 
 
 	// rep, err := tweet_server.GetTweets(context.Background(), &GetTweetsRequest{
 	// 	Username: username,
