@@ -5,12 +5,11 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"os/exec"
 	"time"
 
 	context "context"
 
-	clientv3 "go.etcd.io/etcd/client/v3"
+	clientv3 "go.etcd.io/etcd/client/v2"
 )
 
 type Server struct {
@@ -23,7 +22,7 @@ type User struct {
 }
 
 func (s *Server) SignUp(ctx context.Context, in *UserSignUpRequest) (*UserSignUpResponse, error) {
-	var users = make(map[string]User)
+	// var users = make(map[string]User)
 
 	// Get data from raft
 	cli, err := clientv3.New(clientv3.Config{
@@ -41,24 +40,24 @@ func (s *Server) SignUp(ctx context.Context, in *UserSignUpRequest) (*UserSignUp
 	if err != nil {
 		log.Fatal(err)
 	}
+	log.Print(resp)
+	// if _, exists := resp.Kvs[in.Username]; exists {
+	// 	log.Print("User already exists")
+	// 	return &UserSignUpResponse{Success: false}, nil
+	// }
 
-	if _, exists := resp.Kvs[in.Username]; exists {
-		log.Print("User already exists")
-		return &UserSignUpResponse{Success: false}, nil
-	}
+	// newuser := users[in.Username]
+	// newuser.Username = in.Username
+	// newuser.Password = in.Password
+	// users[in.Username] = newuser
 
-	newuser := users[in.Username]
-	newuser.Username = in.Username
-	newuser.Password = in.Password
-	users[in.Username] = newuser
+	// usersjson, err := json.Marshal(users)
+	// if err != nil {
+	// 	log.Print(err)
+	// }
+	// cmd := exec.Command("curl", "-L", "http://127.0.0.1:12380/users", "-XPUT", "-d "+string(usersjson))
 
-	usersjson, err := json.Marshal(users)
-	if err != nil {
-		log.Print(err)
-	}
-	cmd := exec.Command("curl", "-L", "http://127.0.0.1:12380/users", "-XPUT", "-d "+string(usersjson))
-
-	cmd.Run()
+	// cmd.Run()
 
 	return &UserSignUpResponse{Success: true}, nil
 }
