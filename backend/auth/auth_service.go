@@ -8,9 +8,6 @@ import (
 	"os/exec"
 
 	context "context"
-
-	globals "backend/globals"
-	// helpers "backend/helpers"
 )
 
 type Server struct {
@@ -75,27 +72,7 @@ func (s *Server) SignIn(ctx context.Context, in *UserSignInRequest) (*UserSignIn
 		fmt.Println("User does not exist")
 		return &UserSignInResponse{Success: false}, nil
 	} else {
-		if val == in.Password {
-			return true
-		} else {
-			return false
-		}
-	}
-	
-	is_valid := CheckUserPass(in.Username, in.Password)
-	return &UserSignInResponse{Success: is_valid, Username: in.Username}, nil
-}
-
-func CheckUserPass(username, password string) bool { //validate
-	userpass := globals.UserPass
-
-	if val, ok := userpass[username]; ok {
-		if val == password {
-			return true
-		} else {
-			return false
-		}
-	} else {
-		return false
+		is_valid := val.Password == in.Password
+		return &UserSignInResponse{Success: is_valid, Username: in.Username}, nil
 	}
 }
