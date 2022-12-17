@@ -2,8 +2,8 @@ package auth
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"os/exec"
 	"time"
@@ -31,19 +31,19 @@ func (s *Server) SignUp(ctx context.Context, in *UserSignUpRequest) (*UserSignUp
 		DialTimeout: 5 * time.Second,
 	})
 	if err != nil {
-		fmt.Println(err)
+		log.Fatal(err)
 	}
 	defer cli.Close()
 
-	ctx, cancel := context.WithTimeout(context.Background(), timeout)
-	body, err := ioutil.ReadAll(cli.Get())
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	resp, err := cli.Get(ctx, "users")
+	cancel()
 	if err != nil {
-		fmt.Println(err)
+		log.Fatal(err)
 	}
 
-	json.Unmarshal(body, &users)
-	if _, exists := users[in.Username]; exists {
-		fmt.Println("User already exists")
+	if _, exists := resp.Kvs[in.Username]; exists {
+		log.Print("User already exists")
 		return &UserSignUpResponse{Success: false}, nil
 	}
 
@@ -54,7 +54,7 @@ func (s *Server) SignUp(ctx context.Context, in *UserSignUpRequest) (*UserSignUp
 
 	usersjson, err := json.Marshal(users)
 	if err != nil {
-		fmt.Println(err)
+		log.Print(err)
 	}
 	cmd := exec.Command("curl", "-L", "http://127.0.0.1:12380/users", "-XPUT", "-d "+string(usersjson))
 
@@ -69,16 +69,16 @@ func (s *Server) SignIn(ctx context.Context, in *UserSignInRequest) (*UserSignIn
 	// Get data from raft
 	resp, err := http.Get("http://127.0.0.1:12380/users")
 	if err != nil {
-		fmt.Println(err)
+		log.Print(err)
 	}
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		fmt.Println(err)
+		log.Print(err)
 	}
 
 	json.Unmarshal(body, &users)
 	if val, exists := users[in.Username]; !exists {
-		fmt.Println("User does not exist")
+		log.Print("User does not exist")
 		return &UserSignInResponse{Success: false}, nil
 	} else {
 		is_valid := val.Password == in.Password
