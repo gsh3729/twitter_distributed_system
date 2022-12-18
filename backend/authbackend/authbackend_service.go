@@ -5,9 +5,8 @@ import (
 	"log"
 
 	globals "backend/globals"
+	helpers "backend/helpers"
 	context "context"
-
-	clientv3 "go.etcd.io/etcd/client/v3"
 )
 
 type Server struct {
@@ -17,7 +16,7 @@ type Server struct {
 func (s *Server) SignUp(ctx context.Context, in *UserSignUpRequest) (*UserSignUpResponse, error) {
 	users := make(map[string]globals.User)
 
-	
+	resp := helpers.GetKeyFromRaft("users")
 
 	for _, ev := range resp.Kvs {
 		json.Unmarshal(ev.Value, &users)
@@ -38,10 +37,7 @@ func (s *Server) SignUp(ctx context.Context, in *UserSignUpRequest) (*UserSignUp
 		log.Println(err)
 	}
 
-	_, err = cli.Put(context.TODO(), "users", string(updatedusers))
-	if err != nil {
-		log.Fatal(err)
-	}
+	helpers.PutValueForKeys("users", string(updatedusers))
 
 	return &UserSignUpResponse{Success: true}, nil
 }
@@ -50,21 +46,7 @@ func (s *Server) SignIn(ctx context.Context, in *UserSignInRequest) (*UserSignIn
 	var users = make(map[string]globals.User)
 
 	// Get data from raft
-	cli, err := clientv3.New(clientv3.Config{
-		Endpoints:   globals.Endpoints,
-		DialTimeout: globals.Timeout,
-	})
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer cli.Close()
-
-	ctx2, cancel := context.WithTimeout(context.Background(), globals.Timeout)
-	resp, err := cli.Get(ctx2, "users")
-	cancel()
-	if err != nil {
-		log.Fatal(err)
-	}
+	resp := helpers.GetKeyFromRaft("users")
 
 	for _, ev := range resp.Kvs {
 		json.Unmarshal(ev.Value, &users)
