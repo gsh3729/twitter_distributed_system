@@ -54,13 +54,13 @@ func TestTweeting(t *testing.T) {
 	log.Print(resp)
 
 	// convert response to list of struct 
-	var feed []globals.Tweet
+	// var feed []globals.Tweet
 
-	for _, v := range tweets {
-		if v == username1 {
-			log.Printf("Follow working successfully")
-		}
-	}
+	// for _, v := range tweets {
+	// 	if v == username1 {
+	// 		log.Printf("Follow working successfully")
+	// 	}
+	// }
 
 	log.Printf("Posted a new tweet successfully")
 }
