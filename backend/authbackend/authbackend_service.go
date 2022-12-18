@@ -27,22 +27,22 @@ func (s *Server) SignUp(ctx context.Context, in *UserSignUpRequest) (*UserSignUp
 	// var users = make(map[string]User)
 
 	// Get data from raft
-	cli, err := clientv3.New(clientv3.Config{
-		Endpoints:   []string{"localhost:12380", "localhost:22380", "localhost:32380"},
-		DialTimeout: timeout,
-	})
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer cli.Close()
+	// cli, err := clientv3.New(clientv3.Config{
+	// 	Endpoints:   []string{"localhost:12380", "localhost:22380", "localhost:32380"},
+	// 	DialTimeout: timeout,
+	// })
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// defer cli.Close()
 
-	ctx2, cancel := context.WithTimeout(context.Background(), timeout)
-	resp, err := cli.Get(ctx2, "users")
-	cancel()
-	if err != nil {
-		log.Fatal(err)
-	}
-	log.Print(resp)
+	// ctx2, cancel := context.WithTimeout(context.Background(), timeout)
+	// resp, err := cli.Get(ctx2, "users")
+	// cancel()
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+
 	// if _, exists := resp.Kvs[in.Username]; exists {
 	// 	log.Print("User already exists")
 	// 	return &UserSignUpResponse{Success: false}, nil
@@ -60,6 +60,30 @@ func (s *Server) SignUp(ctx context.Context, in *UserSignUpRequest) (*UserSignUp
 	// cmd := exec.Command("curl", "-L", "http://127.0.0.1:12380/users", "-XPUT", "-d "+string(usersjson))
 
 	// cmd.Run()
+
+	cli, err := clientv3.New(clientv3.Config{
+		Endpoints:   []string{"localhost:12380", "localhost:22380", "localhost:32380"},
+		DialTimeout: timeout,
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer cli.Close()
+
+	_, err = cli.Put(context.TODO(), "foo", "bar")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), timeout)
+	resp, err := cli.Get(ctx, "foo")
+	cancel()
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, ev := range resp.Kvs {
+		log.Printf("%s : %s\n", ev.Key, ev.Value)
+	}
 
 	return &UserSignUpResponse{Success: true}, nil
 }
