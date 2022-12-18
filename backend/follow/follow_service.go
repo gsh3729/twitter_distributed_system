@@ -3,6 +3,7 @@ package follow
 import (
 	context "context"
 	"encoding/json"
+	"log"
 
 	globals "backend/globals"
 	"backend/helpers"
@@ -12,7 +13,7 @@ type Server struct {
 	FollowServiceServer
 }
 
-func (s *Server) Follow(ctx context.Context, in *FollowRequest) (*FollowResponse, error) {
+func GetFollowersAndFollowingMaps() (map[string][]string, map[string][]string) {
 	following := make(map[string][]string)
 	followers := make(map[string][]string)
 
@@ -21,15 +22,35 @@ func (s *Server) Follow(ctx context.Context, in *FollowRequest) (*FollowResponse
 		json.Unmarshal(ev.Value, &following)
 	}
 
-	follower_resp := helpers.GetValueForKey("following")
-	for _, ev := range following_resp.Kvs {
+	follower_resp := helpers.GetValueForKey("followers")
+	for _, ev := range follower_resp.Kvs {
 		json.Unmarshal(ev.Value, &followers)
 	}
+	return followers, following
+}
+
+func UpdateFollowersAndFollowingMap(followers map[string][]string, following map[string][]string) {
+	
+}
+
+func (s *Server) Follow(ctx context.Context, in *FollowRequest) (*FollowResponse, error) {
+	followers, following := GetFollowersAndFollowingMaps()
 
 	if !helpers.StringInSlice(in.User2, following[in.User1]) {
-		following[in.User1] = append(globals.Following[in.User1], in.User2)
-		followers[in.User2] = append(globals.Followers[in.User2], in.User1)
+		following[in.User1] = append(following[in.User1], in.User2)
+		followers[in.User2] = append(followers[in.User2], in.User1)
 	}
+	updatedfollowingmap, err := json.Marshal(followers)
+	if err != nil {
+		log.Println(err)
+	}
+	helpers.PutValueForKeys("following", string(updatedfollowingmap))
+
+	updatedfollowermap, err := json.Marshal(followers)
+	if err != nil {
+		log.Println(err)
+	}
+	helpers.PutValueForKeys("followers", string(updatedfollowermap))
 
 	return &FollowResponse{Success: true}, nil
 }
