@@ -14,6 +14,12 @@ import (
 	"backend/tweet"
 )
 
+type TweetStruct struct {
+	Time string
+	Text string
+	User string
+}
+
 func IndexGetHandler() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		session := sessions.Default(c)
@@ -45,12 +51,12 @@ func DashboardGetHandler() gin.HandlerFunc {
 		}
 
 		if response.Success {
-			var result []tweet.Tweet
+			var result []TweetStruct
 			for i := 0; i < len(response.Text); i++ {
 				tweet := tweet.Tweet{
 					Text: response.Text[i],
 					User: response.User[i],
-					Time: response.Time[i].Format("2006-01-02 15:04:05"),
+					Time: response.Time[i],
 				}
 				result = append(result, tweet)
 			}

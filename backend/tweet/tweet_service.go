@@ -53,6 +53,8 @@ func (s *Server) GetTweets(ctx context.Context, in *GetTweetsRequest) (*GetTweet
 		return feed[i].Time.Before(feed[j].Time)
 	})
 
+	for _, tweet := 
+
 	return &GetTweetsResponse{Time: tweettimestamp, Text: tweettexts, User: tweetowners, Success: true}, nil
 }
 
