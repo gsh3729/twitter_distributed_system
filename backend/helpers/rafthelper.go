@@ -57,6 +57,7 @@ func GetMap(key string) map[string][]string {
 }
 
 func PutMap(map_to_put map[string][]string) {
+	log.Print(map_to_put)
 	updated_map, err := json.Marshal(map_to_put)
 	if err != nil {
 		log.Println(err)
