@@ -34,20 +34,21 @@ func PutMap(map_to_put map[string][]string) {
 }
 
 func (s *Server) Follow(ctx context.Context, in *FollowRequest) (*FollowResponse, error) {
-	followers, following := GetMap("followers")
+	followers, following := GetMap("followers"), GetMap("following")
 
 	if !helpers.StringInSlice(in.User2, following[in.User1]) {
 		following[in.User1] = append(following[in.User1], in.User2)
 		followers[in.User2] = append(followers[in.User2], in.User1)
 	}
 
-	PutFollowersAndFollowingMaps(followers, following)
+	PutMap(followers)
+	PutMap(following)
 
 	return &FollowResponse{Success: true}, nil
 }
 
 func (s *Server) Unfollow(ctx context.Context, in *UnfollowRequest) (*UnfollowResponse, error) {
-	followers, following := GetFollowersAndFollowingMaps()
+	followers, following := GetMap("followers"), GetMap("following")
 
 	i := helpers.IndexOf(in.User2, following[in.User1])
 	following[in.User1] = helpers.RemoveFromSlice(following[in.User1], i)
@@ -55,28 +56,39 @@ func (s *Server) Unfollow(ctx context.Context, in *UnfollowRequest) (*UnfollowRe
 	j := helpers.IndexOf(in.User1, followers[in.User2])
 	followers[in.User2] = helpers.RemoveFromSlice(followers[in.User2], j)
 
-	PutFollowersAndFollowingMaps(followers, following)
+	PutMap(followers)
+	PutMap(following)
 
 	return &UnfollowResponse{Success: true}, nil
 }
 
 func (s *Server) GetUserFollowers(ctx context.Context, in *GetFollowersRequest) (*GetFollowersResponse, error) {
-	userFollowers := globals.Followers[in.Username]
+	followers := GetMap("followers")
+	userFollowers := followers[in.Username]
 	return &GetFollowersResponse{Users: userFollowers, Success: true}, nil
 }
 
 func (s *Server) GetUserFollowing(ctx context.Context, in *GetFollowingRequest) (*GetFollowingResponse, error) {
-	userFollowing := globals.Following[in.Username]
+	following := GetMap("followers")
+	userFollowing := following[in.Username]
 	return &GetFollowingResponse{Users: userFollowing, Success: true}, nil
 }
 
 func (s *Server) GetUsers(ctx context.Context, in *GetUsersRequest) (*GetUsersResponse, error) {
 	people := []string{}
-	for key := range globals.UserPass {
-		if key != in.Username {
-			people = append(people, key)
+	var users = make(map[string]globals.User)
+
+	resp := helpers.GetValueForKey("users")
+	for _, ev := range resp.Kvs {
+		json.Unmarshal(ev.Value, &users)
+	}
+
+	for user := range users {
+		if user != in.Username {
+			people = append(people, user)
 		}
 	}
+
 	return &GetUsersResponse{
 		Users:   people,
 		Success: true,
