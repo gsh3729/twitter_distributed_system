@@ -50,7 +50,7 @@ func DashboardGetHandler() gin.HandlerFunc {
 				tweet := tweet.Tweet{
 					Text: response.Text[i],
 					User: response.User[i],
-					Time: response.Time[i],
+					Time: response.Time[i].Format("2006-01-02 15:04:05"),
 				}
 				result = append(result, tweet)
 			}
