@@ -76,7 +76,7 @@ func SignupPostHandler() gin.HandlerFunc {
 		if response.Success {
 			c.HTML(http.StatusCreated, "index.html", gin.H{"content": "Created user successfully"})
 		} else {
-			c.HTML(http.StatusInternalServerError, "index.html", gin.H{"content": "Something went wrong, try again later."})
+			c.HTML(http.StatusInternalServerError, "index.html", gin.H{"content": "User exists."})
 		}
 	}
 }

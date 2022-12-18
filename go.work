@@ -3,5 +3,4 @@ go 1.19
 use (
 	./backend
 	./frontend
-	./raft/src/go.etcd.io/etcd
 )
