@@ -13,55 +13,49 @@ type Server struct {
 	FollowServiceServer
 }
 
-func GetFollowersAndFollowingMaps() (map[string][]string, map[string][]string) {
-	following := make(map[string][]string)
-	followers := make(map[string][]string)
+func GetMap(key string) map[string][]string {
+	return_map := make(map[string][]string)
 
-	following_resp := helpers.GetValueForKey("following")
+	following_resp := helpers.GetValueForKey(key)
 	for _, ev := range following_resp.Kvs {
-		json.Unmarshal(ev.Value, &following)
+		json.Unmarshal(ev.Value, &return_map)
 	}
 
-	follower_resp := helpers.GetValueForKey("followers")
-	for _, ev := range follower_resp.Kvs {
-		json.Unmarshal(ev.Value, &followers)
-	}
-	return followers, following
+	return return_map
 }
 
-func UpdateFollowersAndFollowingMap(followers map[string][]string, following map[string][]string) {
-	
+func PutMap(map_to_put map[string][]string) {
+	updated_map, err := json.Marshal(map_to_put)
+	if err != nil {
+		log.Println(err)
+	}
+	helpers.PutValueForKeys("following", string(updated_map))
+
 }
 
 func (s *Server) Follow(ctx context.Context, in *FollowRequest) (*FollowResponse, error) {
-	followers, following := GetFollowersAndFollowingMaps()
+	followers, following := GetMap("followers")
 
 	if !helpers.StringInSlice(in.User2, following[in.User1]) {
 		following[in.User1] = append(following[in.User1], in.User2)
 		followers[in.User2] = append(followers[in.User2], in.User1)
 	}
-	updatedfollowingmap, err := json.Marshal(followers)
-	if err != nil {
-		log.Println(err)
-	}
-	helpers.PutValueForKeys("following", string(updatedfollowingmap))
 
-	updatedfollowermap, err := json.Marshal(followers)
-	if err != nil {
-		log.Println(err)
-	}
-	helpers.PutValueForKeys("followers", string(updatedfollowermap))
+	PutFollowersAndFollowingMaps(followers, following)
 
 	return &FollowResponse{Success: true}, nil
 }
 
 func (s *Server) Unfollow(ctx context.Context, in *UnfollowRequest) (*UnfollowResponse, error) {
+	followers, following := GetFollowersAndFollowingMaps()
 
-	i := helpers.IndexOf(in.User2, globals.Following[in.User1])
-	globals.Following[in.User1] = helpers.RemoveFromSlice(globals.Following[in.User1], i)
+	i := helpers.IndexOf(in.User2, following[in.User1])
+	following[in.User1] = helpers.RemoveFromSlice(following[in.User1], i)
 
-	j := helpers.IndexOf(in.User1, globals.Followers[in.User2])
-	globals.Followers[in.User2] = helpers.RemoveFromSlice(globals.Followers[in.User2], j)
+	j := helpers.IndexOf(in.User1, followers[in.User2])
+	followers[in.User2] = helpers.RemoveFromSlice(followers[in.User2], j)
+
+	PutFollowersAndFollowingMaps(followers, following)
 
 	return &UnfollowResponse{Success: true}, nil
 }
