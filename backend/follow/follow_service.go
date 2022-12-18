@@ -37,8 +37,8 @@ func (s *Server) Unfollow(ctx context.Context, in *UnfollowRequest) (*UnfollowRe
 	j := helpers.IndexOf(in.User1, followers[in.User2])
 	followers[in.User2] = helpers.RemoveFromSlice(followers[in.User2], j)
 
-	helpers.PutMap(followers)
-	helpers.PutMap(following)
+	helpers.PutMap("followers", followers)
+	helpers.PutMap("following", following)
 
 	return &UnfollowResponse{Success: true}, nil
 }

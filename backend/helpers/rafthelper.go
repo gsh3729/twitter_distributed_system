@@ -56,11 +56,11 @@ func GetMap(key string) map[string][]string {
 	return return_map
 }
 
-func PutMap(map_to_put map[string][]string) {
+func PutMap(key string, map_to_put map[string][]string) {
 	log.Print(map_to_put)
 	updated_map, err := json.Marshal(map_to_put)
 	if err != nil {
 		log.Println(err)
 	}
-	PutValueForKeys("following", string(updated_map))
+	PutValueForKeys(key, string(updated_map))
 }
