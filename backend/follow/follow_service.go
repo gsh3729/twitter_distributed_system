@@ -3,7 +3,6 @@ package follow
 import (
 	context "context"
 	"encoding/json"
-	"log"
 
 	globals "backend/globals"
 	"backend/helpers"
@@ -33,11 +32,8 @@ func (s *Server) Unfollow(ctx context.Context, in *UnfollowRequest) (*UnfollowRe
 	following := helpers.GetMap("following")
 
 	i := helpers.IndexOf(in.User2, following[in.User1])
-	log.Print(following[in.User1])
-	log.Print(i)
 	following[in.User1] = helpers.RemoveFromSlice(following[in.User1], i)
-	log.Print(following[in.User1])
-	log.Print(i)
+
 	j := helpers.IndexOf(in.User1, followers[in.User2])
 	followers[in.User2] = helpers.RemoveFromSlice(followers[in.User2], j)
 
