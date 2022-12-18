@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os/exec"
 	"time"
 
 	context "context"
@@ -24,43 +25,9 @@ type User struct {
 var timeout = 5 * time.Second
 
 func (s *Server) SignUp(ctx context.Context, in *UserSignUpRequest) (*UserSignUpResponse, error) {
-	// var users = make(map[string]User)
+	var users = make(map[string]User)
 
 	// Get data from raft
-	// cli, err := clientv3.New(clientv3.Config{
-	// 	Endpoints:   []string{"localhost:12380", "localhost:22380", "localhost:32380"},
-	// 	DialTimeout: timeout,
-	// })
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-	// defer cli.Close()
-
-	// ctx2, cancel := context.WithTimeout(context.Background(), timeout)
-	// resp, err := cli.Get(ctx2, "users")
-	// cancel()
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-
-	// if _, exists := resp.Kvs[in.Username]; exists {
-	// 	log.Print("User already exists")
-	// 	return &UserSignUpResponse{Success: false}, nil
-	// }
-
-	// newuser := users[in.Username]
-	// newuser.Username = in.Username
-	// newuser.Password = in.Password
-	// users[in.Username] = newuser
-
-	// usersjson, err := json.Marshal(users)
-	// if err != nil {
-	// 	log.Print(err)
-	// }
-	// cmd := exec.Command("curl", "-L", "http://127.0.0.1:12380/users", "-XPUT", "-d "+string(usersjson))
-
-	// cmd.Run()
-
 	cli, err := clientv3.New(clientv3.Config{
 		Endpoints:   []string{"localhost:12380", "localhost:22380", "localhost:32380"},
 		DialTimeout: timeout,
@@ -70,20 +37,25 @@ func (s *Server) SignUp(ctx context.Context, in *UserSignUpRequest) (*UserSignUp
 	}
 	defer cli.Close()
 
-	_, err = cli.Put(context.TODO(), "foo", "bar")
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	ctx, cancel := context.WithTimeout(context.Background(), timeout)
-	resp, err := cli.Get(ctx, "foo")
+	ctx2, cancel := context.WithTimeout(context.Background(), timeout)
+	resp, err := cli.Get(ctx2, "users")
 	cancel()
 	if err != nil {
 		log.Fatal(err)
 	}
-	for _, ev := range resp.Kvs {
-		log.Printf("%s : %s\n", ev.Key, ev.Value)
+
+	newuser := users[in.Username]
+	newuser.Username = in.Username
+	newuser.Password = in.Password
+	users[in.Username] = newuser
+
+	usersjson, err := json.Marshal(users)
+	if err != nil {
+		log.Print(err)
 	}
+	cmd := exec.Command("curl", "-L", "http://127.0.0.1:12380/users", "-XPUT", "-d "+string(usersjson))
+
+	cmd.Run()
 
 	return &UserSignUpResponse{Success: true}, nil
 }
