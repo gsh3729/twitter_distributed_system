@@ -17,22 +17,7 @@ type Server struct {
 func (s *Server) SignUp(ctx context.Context, in *UserSignUpRequest) (*UserSignUpResponse, error) {
 	users := make(map[string]globals.User)
 
-	// Get data from raft
-	cli, err := clientv3.New(clientv3.Config{
-		Endpoints:   globals.Endpoints,
-		DialTimeout: globals.Timeout,
-	})
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer cli.Close()
-
-	ctx2, cancel := context.WithTimeout(context.Background(), globals.Timeout)
-	resp, err := cli.Get(ctx2, "users")
-	cancel()
-	if err != nil {
-		log.Fatal(err)
-	}
+	
 
 	for _, ev := range resp.Kvs {
 		json.Unmarshal(ev.Value, &users)
