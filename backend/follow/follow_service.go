@@ -21,8 +21,8 @@ func (s *Server) Follow(ctx context.Context, in *FollowRequest) (*FollowResponse
 		followers[in.User2] = append(followers[in.User2], in.User1)
 	}
 
-	helpers.PutMap(followers)
-	helpers.PutMap(following)
+	helpers.PutMap("followes", followers)
+	helpers.PutMap("following", following)
 
 	return &FollowResponse{Success: true}, nil
 }
