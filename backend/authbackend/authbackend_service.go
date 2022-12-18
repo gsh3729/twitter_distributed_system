@@ -36,16 +36,13 @@ func (s *Server) SignUp(ctx context.Context, in *UserSignUpRequest) (*UserSignUp
 	}
 	defer cli.Close()
 
-	ctx2, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	ctx2, cancel := context.WithTimeout(context.Background(), timeout)
 	resp, err := cli.Get(ctx2, "users")
 	cancel()
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	for _, ev := range resp.Kvs {
-		log.Printf("%s : %s\n", ev.Key, ev.Value)
-	}
+	log.Print(resp)
 	// if _, exists := resp.Kvs[in.Username]; exists {
 	// 	log.Print("User already exists")
 	// 	return &UserSignUpResponse{Success: false}, nil
