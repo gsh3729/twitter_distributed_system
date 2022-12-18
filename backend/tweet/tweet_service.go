@@ -34,18 +34,12 @@ func (s *Server) GetTweets(ctx context.Context, in *GetTweetsRequest) (*GetTweet
 
 	for _, tweet := range tweets[in.Username] {
 		feed = append(feed, tweet)
-		tweettexts = append(tweettexts, tweet.Text)
-		tweetowners = append(tweetowners, tweet.User)
-		tweettimestamp = append(tweettimestamp, tweet.Time.Format("2006-01-02 15:04:05"))
 	}
 
 	following := helpers.GetMap("following")
 	for _, element := range following[in.Username] {
 		for _, tweet := range tweets[element] {
 			feed = append(feed, tweet)
-			tweettexts = append(tweettexts, tweet.Text)
-			tweetowners = append(tweetowners, tweet.User)
-			tweettimestamp = append(tweettimestamp, tweet.Time.Format("2006-01-02 15:04:05"))
 		}
 	}
 
@@ -53,7 +47,11 @@ func (s *Server) GetTweets(ctx context.Context, in *GetTweetsRequest) (*GetTweet
 		return feed[i].Time.Before(feed[j].Time)
 	})
 
-	for _, tweet := 
+	for _, tweet := range feed {
+		tweettexts = append(tweettexts, tweet.Text)
+		tweetowners = append(tweetowners, tweet.User)
+		tweettimestamp = append(tweettimestamp, tweet.Time.Format("2006-01-02 15:04:05"))
+	}
 
 	return &GetTweetsResponse{Time: tweettimestamp, Text: tweettexts, User: tweetowners, Success: true}, nil
 }

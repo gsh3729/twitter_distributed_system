@@ -53,7 +53,7 @@ func DashboardGetHandler() gin.HandlerFunc {
 		if response.Success {
 			var result []TweetStruct
 			for i := 0; i < len(response.Text); i++ {
-				tweet := tweet.Tweet{
+				tweet := TweetStruct{
 					Text: response.Text[i],
 					User: response.User[i],
 					Time: response.Time[i],
