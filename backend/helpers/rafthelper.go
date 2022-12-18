@@ -2,6 +2,7 @@ package helpers
 
 import (
 	"context"
+	"encoding/json"
 	"log"
 
 	globals "backend/globals"
@@ -42,4 +43,23 @@ func PutValueForKeys(key string, value string) {
 	if err != nil {
 		log.Fatal(err)
 	}
+}
+
+func GetMap(key string) map[string][]string {
+	return_map := make(map[string][]string)
+
+	following_resp := GetValueForKey(key)
+	for _, ev := range following_resp.Kvs {
+		json.Unmarshal(ev.Value, &return_map)
+	}
+
+	return return_map
+}
+
+func PutMap(map_to_put map[string][]string) {
+	updated_map, err := json.Marshal(map_to_put)
+	if err != nil {
+		log.Println(err)
+	}
+	PutValueForKeys("following", string(updated_map))
 }
