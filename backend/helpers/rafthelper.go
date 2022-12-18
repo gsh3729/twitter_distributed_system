@@ -9,7 +9,7 @@ import (
 	"go.etcd.io/etcd/clientv3"
 )
 
-func GetKeyFromRaft(key string) *clientv3.GetResponse {
+func GetValueForKey(key string) *clientv3.GetResponse {
 	cli, err := clientv3.New(clientv3.Config{
 		Endpoints:   globals.Endpoints,
 		DialTimeout: globals.Timeout,

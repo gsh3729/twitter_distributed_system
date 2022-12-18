@@ -16,7 +16,7 @@ type Server struct {
 func (s *Server) SignUp(ctx context.Context, in *UserSignUpRequest) (*UserSignUpResponse, error) {
 	users := make(map[string]globals.User)
 
-	resp := helpers.GetKeyFromRaft("users")
+	resp := helpers.GetValueForKey("users")
 
 	for _, ev := range resp.Kvs {
 		json.Unmarshal(ev.Value, &users)
@@ -46,7 +46,7 @@ func (s *Server) SignIn(ctx context.Context, in *UserSignInRequest) (*UserSignIn
 	var users = make(map[string]globals.User)
 
 	// Get data from raft
-	resp := helpers.GetKeyFromRaft("users")
+	resp := helpers.GetValueForKey("users")
 
 	for _, ev := range resp.Kvs {
 		json.Unmarshal(ev.Value, &users)

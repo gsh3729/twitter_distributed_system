@@ -2,6 +2,7 @@ package follow
 
 import (
 	context "context"
+	"encoding/json"
 
 	globals "backend/globals"
 	"backend/helpers"
@@ -12,10 +13,22 @@ type Server struct {
 }
 
 func (s *Server) Follow(ctx context.Context, in *FollowRequest) (*FollowResponse, error) {
+	following := make(map[string][]string)
+	followers := make(map[string][]string)
 
-	if !helpers.StringInSlice(in.User2, globals.Following[in.User1]) {
-		globals.Following[in.User1] = append(globals.Following[in.User1], in.User2)
-		globals.Followers[in.User2] = append(globals.Followers[in.User2], in.User1)
+	following_resp := helpers.GetValueForKey("following")
+	for _, ev := range following_resp.Kvs {
+		json.Unmarshal(ev.Value, &following)
+	}
+
+	follower_resp := helpers.GetValueForKey("following")
+	for _, ev := range following_resp.Kvs {
+		json.Unmarshal(ev.Value, &followers)
+	}
+
+	if !helpers.StringInSlice(in.User2, following[in.User1]) {
+		following[in.User1] = append(globals.Following[in.User1], in.User2)
+		followers[in.User2] = append(globals.Followers[in.User2], in.User1)
 	}
 
 	return &FollowResponse{Success: true}, nil
