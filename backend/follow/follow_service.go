@@ -13,7 +13,8 @@ type Server struct {
 }
 
 func (s *Server) Follow(ctx context.Context, in *FollowRequest) (*FollowResponse, error) {
-	followers, following := helpers.GetMap("followers"), helpers.GetMap("following")
+	followers := helpers.GetMap("followers")
+	following := helpers.GetMap("following")
 
 	if !helpers.StringInSlice(in.User2, following[in.User1]) {
 		following[in.User1] = append(following[in.User1], in.User2)
@@ -27,7 +28,8 @@ func (s *Server) Follow(ctx context.Context, in *FollowRequest) (*FollowResponse
 }
 
 func (s *Server) Unfollow(ctx context.Context, in *UnfollowRequest) (*UnfollowResponse, error) {
-	followers, following := helpers.GetMap("followers"), helpers.GetMap("following")
+	followers := helpers.GetMap("followers")
+	following := helpers.GetMap("following")
 
 	i := helpers.IndexOf(in.User2, following[in.User1])
 	following[in.User1] = helpers.RemoveFromSlice(following[in.User1], i)
@@ -48,7 +50,7 @@ func (s *Server) GetUserFollowers(ctx context.Context, in *GetFollowersRequest) 
 }
 
 func (s *Server) GetUserFollowing(ctx context.Context, in *GetFollowingRequest) (*GetFollowingResponse, error) {
-	following := helpers.GetMap("followers")
+	following := helpers.GetMap("following")
 	userFollowing := following[in.Username]
 	return &GetFollowingResponse{Users: userFollowing, Success: true}, nil
 }
