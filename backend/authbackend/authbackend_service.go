@@ -28,21 +28,7 @@ func (s *Server) SignUp(ctx context.Context, in *UserSignUpRequest) (*UserSignUp
 	var users = make(map[string]User)
 
 	// Get data from raft
-	cli, err := clientv3.New(clientv3.Config{
-		Endpoints:   []string{"localhost:12380", "localhost:22380", "localhost:32380"},
-		DialTimeout: timeout,
-	})
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer cli.Close()
 
-	ctx2, cancel := context.WithTimeout(context.Background(), timeout)
-	resp, err := cli.Get(ctx2, "users")
-	cancel()
-	if err != nil {
-		log.Fatal(err)
-	}
 
 	newuser := users[in.Username]
 	newuser.Username = in.Username
