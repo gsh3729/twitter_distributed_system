@@ -1,14 +1,12 @@
 # Twitter v2.0
 
-This is a clone of Twitter with a minimal set of features built using GO and distributed storage using RAFT. 
+This is a minimal Twitter app that is written on Golang and uses etcd as storage system and communicates across services using grpc.
 
 Technical specifications:
 
-1. A Web Server to serve user requests using HTTP APIs. No state is stored in this service.
-
-2. 3 backend services (namely authentication service, users service, tweets service) which talk to Web Server through GRPC in order to fulfill users requests. 
-
-3. The backend services persist all data onto RAFT backed storage using etcd.
+1. Frontend using gin-gonic - A golang framework for developing web apps easily. We use their sessions feature to login users and store sessions on the browser as cookies. No states are stored in the frontend, and communication to backend is done using gRPC.
+2. Backend Micro Services - Authentication, Tweets, and Followers. These services are used to provide the features of our system. They are golang services which implement gRPC servers.
+3. etcd is our storage tool. etcd is a distributed, reliable key-value store for the most critical data of a distributed system. 
 
 ---
 
