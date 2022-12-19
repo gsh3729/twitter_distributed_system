@@ -29,38 +29,41 @@ Install [Golang](https://go.dev/doc/install)
 ### Install and Start etcd
 
 Run the install_etcd.sh script from root directory.
-```
+```bash
 ./install_etcd.sh
 ```
 Run the runraft.sh script from root directory.
-```
+```bash
 ./runraft.sh
 ```
-This uses 
+This uses [etcd](https://github.com/etcd-io/etcd) and [goreman](https://github.com/mattn/goreman).
+etcd is installed into /tmp/ directory. goreman uses the Procfile in the root directory to spin up 3 instances of etcd in a single cluster. etcd cluster becomes available for usage after all 3 replicas start.
+
+### Start the Backend Server
+
+From the root directory:
+```bash
+    ./runbackend.sh
+```
 
 ### Run Tests
-Start from root of project. 
 
+Run test cases for backend using:
 ```bash
-    cd ./web/users
+    cd ./backend/authbackend
     go test 
 
-    cd ./web/tweets
+    cd ./backend/follow
     go test 
 
-    cd ./web/authentication
+    cd ./backend/tweet
     go test 
 
 ```
-### Start the Web Server
-Start from root of project. 
 
-```bash
-    go run ./web/web.go
-```
+### Start the Frontend
 
-### Start the Backend Services
-Start from root of project.  
+From root of project.  
 
 ```bash
     go run ./web/server.go
