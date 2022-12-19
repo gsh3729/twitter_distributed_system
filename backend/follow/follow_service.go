@@ -66,8 +66,8 @@ func (s *Server) GetUsers(ctx context.Context, in *GetUsersRequest) (*GetUsersRe
 	following := helpers.GetMap("following")
 
 	for user := range users {
-		if user 
-		if user != in.Username {
+		_, follows := following[user]
+		if user != in.Username && !follows {
 			people = append(people, user)
 		}
 	}
