@@ -81,3 +81,20 @@ To generate proto files, using protoc, go to backend folder and execute the foll
 protoc --proto_path=[authbackend or follow or tweet] --go_out=. --go-grpc_out=. [authbackend or follow or tweet]/*.proto
 ```
 
+To view etcd servers and their status: (assuming you have etcd in your path)
+```bash
+etcdctl -w table endpoint --cluster status
+```
+Or if installed using our script
+```bash
+/tmp/etcd-download-test/etcdctl -w table endpoint --cluster status
+```
+
+Stopping individual etcd servers :
+```bash
+goreman run stop [infra0 or infra1 or infra2]
+```
+Starting individual etcd servers :
+```bash
+goreman run start [infra0 or infra1 or infra2]
+```
