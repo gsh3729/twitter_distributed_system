@@ -41,12 +41,12 @@ func TestFollow(t *testing.T) {
 	for _, v := range resp.Users {
 		if v == username1 {
 			flag = true
-			log.Printf("Follow tests passed successfully")
 		}
 	}
-
-	if flag {
+	if !flag {
 		t.Error("TestFollow failed")
+	} else {
+		log.Printf("Follow tests passed successfully")
 	}
 }
 
