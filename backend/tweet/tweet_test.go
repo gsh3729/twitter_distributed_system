@@ -26,7 +26,7 @@ func TestTweeting(t *testing.T) {
 		Text:     tweet_text,
 	})
 
-	if err != nil && !response.Success{
+	if err != nil || !response.Success{
 		t.Error("TestTweeting failed: ", err)
 	}
 
@@ -40,7 +40,7 @@ func TestTweeting(t *testing.T) {
 	for _, v := range tweets[username] {
 		if v.User == username && v.Text == tweet_text {
 			flag = false
-			log.Printf("Posted a new tweet successfully")
+			log.Printf("Tweet tests passed successfully")
 		}
 	}
 	if flag {
