@@ -1,11 +1,11 @@
 package follow
 
 import (
-	"testing"
-	"log"
 	"context"
-	"google.golang.org/grpc"
+	"log"
+	"testing"
 
+	"google.golang.org/grpc"
 )
 
 func TestFollow(t *testing.T) {
@@ -27,7 +27,7 @@ func TestFollow(t *testing.T) {
 
 	if err != nil || !response.Success {
 		t.Error("TestFollow failed: ", err)
-	} 
+	}
 
 	resp, err := follow_server.GetUserFollowers(context.Background(), &GetFollowersRequest{
 		Username: username2,
@@ -36,7 +36,6 @@ func TestFollow(t *testing.T) {
 	if err != nil || !resp.Success {
 		t.Error("TestFollow failed: ", err)
 	}
-
 
 	var flag bool = false
 	for _, v := range resp.Users {
@@ -70,7 +69,7 @@ func TestUnfollow(t *testing.T) {
 
 	if err != nil || !response.Success {
 		t.Error("TestUnfollow failed: ", err)
-	} 
+	}
 
 	resp, err := follow_server.GetUserFollowers(context.Background(), &GetFollowersRequest{
 		Username: username2,
@@ -88,7 +87,3 @@ func TestUnfollow(t *testing.T) {
 
 	log.Printf("Unfollow tests passed successfully")
 }
-
-
-
-
