@@ -64,9 +64,14 @@ func (s *Server) GetUsers(ctx context.Context, in *GetUsersRequest) (*GetUsersRe
 		json.Unmarshal(ev.Value, &users)
 	}
 	following := helpers.GetMap("following")
-
+	follows := false
 	for user := range users {
-		_, follows := following[user]
+		for _, v := range following[in.Username] {
+			if v == user {
+				follows = true
+			}
+		}
+
 		if user != in.Username && !follows {
 			people = append(people, user)
 		}
