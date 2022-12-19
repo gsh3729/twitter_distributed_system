@@ -38,13 +38,17 @@ func TestFollow(t *testing.T) {
 	}
 
 
+	var flag bool = false
 	for _, v := range resp.Users {
 		if v == username1 {
+			flag = true
 			log.Printf("Follow working successfully")
 		}
 	}
 
-	log.Printf("Follow not working successfully")
+	if flag {
+		t.Error("TestFollow failed")
+	}
 }
 
 func TestUnfollow(t *testing.T) {
@@ -55,8 +59,8 @@ func TestUnfollow(t *testing.T) {
 	}
 	defer conn.Close()
 
-	var username1 string = "user1"
-	var username2 string = "user2"
+	var username1 string = "sri"
+	var username2 string = "har"
 
 	follow_server := NewFollowServiceClient(conn)
 	response, err := follow_server.Unfollow(context.Background(), &UnfollowRequest{
@@ -78,11 +82,11 @@ func TestUnfollow(t *testing.T) {
 
 	for _, v := range resp.Users {
 		if v == username1 {
-			t.Error("Unfollow not working successfully")
+			t.Error("TestUnfollow failed")
 		}
 	}
 
-	log.Printf("Follow working successfully")
+	log.Printf("Unfollow working successfully")
 }
 
 
