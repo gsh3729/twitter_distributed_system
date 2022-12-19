@@ -9,13 +9,13 @@ This is a minimal Twitter app that is written on Golang and uses etcd as storage
 3. etcd is our storage tool. etcd is a distributed, reliable key-value store for the most critical data of a distributed system. It uses RAFT algorithm to reach consensus and maintain availability and concurrency across multiple storage replicas.
 
 ## Supported features:
-> 1. User Signup
-> 2. User Signin
-> 3. List Users on the platform
-> 4. Follow and Unfollow other users
-> 5. Post tweets
-> 6. View tweets that you or people you follow have posted
-> 7. Session based user login
+1. User Signup
+2. User Signin
+3. List Users on the platform
+4. Follow and Unfollow other users
+5. Post tweets
+6. View tweets that you or people you follow have posted
+7. Session based user login
 
 ## Instructions To Run App
 ### Setup
@@ -46,14 +46,14 @@ From the root directory:
 
 Run test cases for backend by running the following from root directory:
 ```bash
-    cd ./backend/authbackend
-    go test 
+cd ./backend/authbackend
+go test 
 
-    cd ../follow
-    go test 
+cd ../follow
+go test 
 
-    cd ../tweet
-    go test 
+cd ../tweet
+go test 
 ```
 
 ### Start the Frontend
@@ -61,7 +61,7 @@ Run test cases for backend by running the following from root directory:
 From root of project.  
 
 ```bash
-    ./runfrontend.sh
+./runfrontend.sh
 ```
 
 ### Application access details
