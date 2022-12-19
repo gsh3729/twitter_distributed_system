@@ -8,7 +8,7 @@ import (
 )
 
 
-func TestAuth(t *testing.T) {
+func TestAuth1(t *testing.T) {
 	var conn *grpc.ClientConn
 	conn, err2 := grpc.Dial(":9000", grpc.WithInsecure())
 	if err2 != nil {

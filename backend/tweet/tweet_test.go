@@ -5,8 +5,8 @@ import (
 	"log"
 	"context"
 	"google.golang.org/grpc"
-	clientv3 "go.etcd.io/etcd/client/v3"
-	"time"
+	"backend/helpers"
+	"encoding/json"
 )
 
 func TestTweeting(t *testing.T) {
@@ -36,22 +36,11 @@ func TestTweeting(t *testing.T) {
 
 	// check the content is posted or not
 
-	cli, err := clientv3.New(clientv3.Config{
-		Endpoints:   []string{"localhost:12380", "localhost:22380", "localhost:32380"},
-		DialTimeout: 5 * time.Second,
-	})
-	if err != nil {
-		log.Fatal(err)
+	tweets := make(map[string][]Tweet)
+	resp := helpers.GetValueForKey("tweets")
+	for _, ev := range resp.Kvs {
+		json.Unmarshal(ev.Value, &tweets)
 	}
-	defer cli.Close()
-
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-	resp, err := cli.Get(ctx, "tweets")
-	cancel()
-	if err != nil {
-		log.Fatal(err)
-	}
-	log.Print(resp)
 
 	// convert response to list of struct 
 	// var feed []globals.Tweet
