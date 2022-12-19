@@ -74,3 +74,9 @@ The application uses the following ports on localhost:
 
 The app can be accesses on http://localhost:8000/ or http://ide8000.anubis-lms.io/
 
+### Additional commands used
+
+To generate proto files, using protoc, go to backend folder and execute the following:
+```bash
+protoc --proto_path=[authbackend or follow or tweet] --go_out=. --go-grpc_out=. [follow]/*.proto
+```
