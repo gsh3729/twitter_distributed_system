@@ -8,6 +8,8 @@ import (
 	"google.golang.org/grpc"
 )
 
+func cleanup_function()
+
 func TestAuth1(t *testing.T) {
 	var conn *grpc.ClientConn
 	conn, err2 := grpc.Dial(":9000", grpc.WithInsecure())
@@ -71,6 +73,8 @@ func TestAuth2(t *testing.T) {
 	if err != nil || resp.Success {
 		t.Error("TestAuth signin failed: ", err)
 	}
+	
+	cleanup := cleanup_function()
 
 	log.Printf("Auth test2 passed successfully")
 }

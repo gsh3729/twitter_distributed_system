@@ -49,5 +49,9 @@ func TestTweeting(t *testing.T) {
 	}
 
 	delete(tweets, username)
-	helpers.PutMap()
+	updatedtweets, err := json.Marshal(tweets)
+	if err != nil {
+		log.Println(err)
+	}
+	helpers.PutValueForKeys("tweets", string(updatedtweets))
 }
