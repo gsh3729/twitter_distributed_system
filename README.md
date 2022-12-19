@@ -39,7 +39,7 @@ etcd is installed into /tmp/ directory. goreman uses the Procfile in the root di
 
 From the root directory:
 ```bash
-    ./runbackend.sh
+./runbackend.sh
 ```
 
 ### Run Tests
@@ -78,5 +78,6 @@ The app can be accesses on http://localhost:8000/ or http://ide8000.anubis-lms.i
 
 To generate proto files, using protoc, go to backend folder and execute the following:
 ```bash
-protoc --proto_path=[authbackend or follow or tweet] --go_out=. --go-grpc_out=. [follow]/*.proto
+protoc --proto_path=[authbackend or follow or tweet] --go_out=. --go-grpc_out=. [authbackend or follow or tweet]/*.proto
 ```
+
