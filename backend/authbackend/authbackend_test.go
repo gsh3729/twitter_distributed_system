@@ -1,14 +1,34 @@
 package authbackend
 
 import (
+	"backend/globals"
+	"backend/helpers"
 	"context"
+	"encoding/json"
 	"log"
 	"testing"
 
 	"google.golang.org/grpc"
 )
 
-func cleanup_function()
+func cleanup() {
+	users := make(map[string]globals.User)
+
+	resp := helpers.GetValueForKey("users")
+
+	for _, ev := range resp.Kvs {
+		json.Unmarshal(ev.Value, &users)
+	}
+
+	delete(users, "harshaG")
+
+	updatedusers, err := json.Marshal(users)
+	if err != nil {
+		log.Println(err)
+	}
+
+	helpers.PutValueForKeys("users", string(updatedusers))
+}
 
 func TestAuth1(t *testing.T) {
 	var conn *grpc.ClientConn
@@ -73,8 +93,8 @@ func TestAuth2(t *testing.T) {
 	if err != nil || resp.Success {
 		t.Error("TestAuth signin failed: ", err)
 	}
-	
-	cleanup := cleanup_function()
+
+	defer cleanup()
 
 	log.Printf("Auth test2 passed successfully")
 }
