@@ -1,12 +1,12 @@
 package authbackend
 
 import (
-	"testing"
-	"log"
 	"context"
+	"log"
+	"testing"
+
 	"google.golang.org/grpc"
 )
-
 
 func TestAuth1(t *testing.T) {
 	var conn *grpc.ClientConn
@@ -40,7 +40,6 @@ func TestAuth1(t *testing.T) {
 
 	log.Printf("Auth test1 passed successfully")
 }
-
 
 func TestAuth2(t *testing.T) {
 	var conn *grpc.ClientConn
