@@ -26,15 +26,9 @@ func TestTweeting(t *testing.T) {
 		Text:     tweet_text,
 	})
 
-	if err != nil {
-		t.Fatalf("TestTweeting failed: %v", err)
+	if err != nil && !response.Success{
+		t.Error("TestTweeting failed: ", err)
 	}
-
-	if !response.Success {
-		t.Error("TestTweeting Failed")
-	}
-
-	// check the content is posted or not
 
 	tweets := make(map[string][]Tweet)
 	resp := helpers.GetValueForKey("tweets")
@@ -42,14 +36,14 @@ func TestTweeting(t *testing.T) {
 		json.Unmarshal(ev.Value, &tweets)
 	}
 
-	// convert response to list of struct 
-	// var feed []globals.Tweet
-
-	// for _, v := range tweets {
-	// 	if v == username1 {
-	// 		log.Printf("Follow working successfully")
-	// 	}
-	// }
-
-	log.Printf("Posted a new tweet successfully")
+	var flag bool = true
+	for _, v := range tweets[username] {
+		if v.User == username && v.Text == tweet_text {
+			flag = false
+			log.Printf("Posted a new tweet successfully")
+		}
+	}
+	if flag {
+		t.Error("TestTweeting failed")
+	}
 }
