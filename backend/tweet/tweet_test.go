@@ -1,12 +1,13 @@
 package tweet
 
 import (
-	"testing"
-	"log"
-	"context"
-	"google.golang.org/grpc"
 	"backend/helpers"
+	"context"
 	"encoding/json"
+	"log"
+	"testing"
+
+	"google.golang.org/grpc"
 )
 
 func TestTweeting(t *testing.T) {
@@ -26,7 +27,7 @@ func TestTweeting(t *testing.T) {
 		Text:     tweet_text,
 	})
 
-	if err != nil || !response.Success{
+	if err != nil || !response.Success {
 		t.Error("TestTweeting failed: ", err)
 	}
 
@@ -46,4 +47,7 @@ func TestTweeting(t *testing.T) {
 	if flag {
 		t.Error("TestTweeting failed")
 	}
+
+	delete(tweets, username)
+	helpers.PutMap()
 }
