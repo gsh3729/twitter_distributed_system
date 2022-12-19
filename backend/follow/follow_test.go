@@ -25,26 +25,19 @@ func TestFollow(t *testing.T) {
 		User2: username2,
 	})
 
-	if err != nil {
-		t.Fatalf("TestFollow failed: %v", err)
-	}
+	if err != nil && !response.Success {
+		t.Error("TestFollow failed: ", err)
+	} 
 
-	if !response.Success {
-		t.Error("TestFollow Failed")
-	}
 
-	// check the contents of followers
 	resp, err := follow_server.GetUserFollowers(context.Background(), &GetFollowersRequest{
 		Username: username2,
 	})
 
-	if err != nil {
-		t.Fatalf("TestFollow failed: %v", err)
+	if err != nil && !resp.Success {
+		t.Error("TestFollow failed: ", err)
 	}
 
-	if !resp.Success {
-		t.Error("TestFollow Failed")
-	}
 
 	for _, v := range resp.Users {
 		if v == username1 {
