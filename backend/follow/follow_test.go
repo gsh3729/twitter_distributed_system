@@ -16,8 +16,8 @@ func TestFollow(t *testing.T) {
 	}
 	defer conn.Close()
 
-	var username1 string = "user1"
-	var username2 string = "user2"
+	var username1 string = "sri"
+	var username2 string = "har"
 
 	follow_server := NewFollowServiceClient(conn)
 	response, err := follow_server.Follow(context.Background(), &FollowRequest{

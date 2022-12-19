@@ -17,8 +17,8 @@ func TestTweeting(t *testing.T) {
 	}
 	defer conn.Close()
 
-	var username string = "harshaG"
-	var tweet_text string = "Hi, this tweet is from harsha"
+	var username string = "sri"
+	var tweet_text string = "Hi, this tweet is from sri"
 
 	tweet_server := NewTweetServiceClient(conn)
 	response, err := tweet_server.PostTweet(context.Background(), &PostTweetRequest{
