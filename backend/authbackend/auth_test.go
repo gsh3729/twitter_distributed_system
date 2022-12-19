@@ -63,12 +63,13 @@ func TestAuth2(t *testing.T) {
 		t.Error("TestAuth signup failed: ", err)
 	}
 
+	password = "p123"
 	resp, err := auth_server.SignIn(context.Background(), &UserSignInRequest{
 		Username: username,
 		Password: password,
 	})
 
-	if err != nil || !resp.Success {
+	if err != nil || resp.Success {
 		t.Error("TestAuth signin failed: ", err)
 	}
 

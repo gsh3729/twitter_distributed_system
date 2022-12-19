@@ -25,7 +25,7 @@ func TestFollow(t *testing.T) {
 		User2: username2,
 	})
 
-	if err != nil && !response.Success {
+	if err != nil || !response.Success {
 		t.Error("TestFollow failed: ", err)
 	} 
 
@@ -33,7 +33,7 @@ func TestFollow(t *testing.T) {
 		Username: username2,
 	})
 
-	if err != nil && !resp.Success {
+	if err != nil || !resp.Success {
 		t.Error("TestFollow failed: ", err)
 	}
 
@@ -42,7 +42,7 @@ func TestFollow(t *testing.T) {
 	for _, v := range resp.Users {
 		if v == username1 {
 			flag = true
-			log.Printf("Follow working successfully")
+			log.Printf("Follow tests passed successfully")
 		}
 	}
 
@@ -68,7 +68,7 @@ func TestUnfollow(t *testing.T) {
 		User2: username2,
 	})
 
-	if err != nil && !response.Success {
+	if err != nil || !response.Success {
 		t.Error("TestUnfollow failed: ", err)
 	} 
 
@@ -76,7 +76,7 @@ func TestUnfollow(t *testing.T) {
 		Username: username2,
 	})
 
-	if err != nil && !resp.Success {
+	if err != nil || !resp.Success {
 		t.Error("TestUnfollow failed: ", err)
 	}
 
@@ -86,7 +86,7 @@ func TestUnfollow(t *testing.T) {
 		}
 	}
 
-	log.Printf("Unfollow working successfully")
+	log.Printf("Unfollow tests passed successfully")
 }
 
 
